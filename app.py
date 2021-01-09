@@ -33,7 +33,7 @@ review_html = soup.find_all('div',class_="_cmttxt _wwrap")
 # flask templates
 @app.route('/',methods=['GET'])
 def Home():
-    return render_template('index.html')
+    return render_template('home.html')
 
 
 # sentiment analysis function 
@@ -84,6 +84,13 @@ def decision_maker(final_review , rate_review):
         output="Negative"
 
     return output,final_rate
+
+
+
+
+@app.route("/buy", methods=['POST'])
+def gotobuy():
+    return render_template('index.html')
 
 
 # evaluating sentiments
