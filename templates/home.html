@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone Resales Corner</title>
+</head>
+
+<body>
+
+    
+
+    <div class="main-content" id="apple_default">
+
+        <header class="header">
+            <h1 id="platform">iPhone Resales Corner</h1><br>
+        </header>
+
+
+
+            <br><h2 id="get_value" style="color: greenyellow;">Apple Authorised Reseller in Chennai</h2><br>
+
+            <div class="div_5">
+                <h3>Buy or Sell iPhone<h3>
+            </div>
+
+
+            <div class="div_1">
+
+
+            <div class="model_div" onclick="submit_buy()">
+            <form action="{{ url_for('gotobuy')}}" method="post" id="sub_buy">
+            <h3>I want to Buy <br> iPhone</h3><br>
+            <input style="visibility: hidden;" value="null">
+            </form>
+            </div>
+
+       
+
+            <div class="variant_div">
+            <form>
+            <h3>I want to Sell <br> iPhone</h3><br>
+            </form>
+            </div>
+
+            
+            </div>
+
+
+
+
+        <br><br>
+
+    </div>
+
+    <footer class="foot">
+        <br>
+            <h2>© iPhone Resales Corner 2021 All Rights Reserved</h2><br>
+            <h3>Contact - iphoneresalescorner@gmail.com</h3><br>
+    </footer>
+
+
+</body>
+
+<style>
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+body{
+    height: 100%;
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(152, 235, 29);
+    font-weight: bolder;
+    background-color: black;
+}
+
+.main-content{
+    background: url("https://www.pixel4k.com/wp-content/uploads/2018/03/Dark%20Metal%20Apple3724615454.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  margin-bottom: 0;
+}
+
+.foot{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    background-color: black;
+    color: rgb(152, 235, 29);
+}
+
+
+#get_value{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+}
+
+
+header{
+    color: rgb(152, 235, 29);
+    background-color: rgba(0, 0, 0, 0.4);
+    font-family: 'Cinzel', serif;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    position: sticky;
+    top: 0;
+}
+
+
+header h1{
+    margin: 1%;
+}
+
+
+.div_1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+}
+
+.model_div{
+    height: 40vh;
+    width: 40vh;
+    border-radius: 5%;
+    background-color: rgb(255, 255, 255 , 0.4);
+    margin: 2%;
+}
+
+.model_div:hover{
+    cursor: pointer;
+    background-color: rgb(255, 255, 255 ,0.8);
+    color: black;
+}
+
+.variant_div{
+    height: 40vh;
+    width: 40vh;
+    border-radius: 5%;
+    background-color: rgb(255, 255, 255 , 0.4);
+    margin: 2%;
+}
+
+.variant_div:hover{
+    cursor: pointer;
+    background-color: rgb(255, 255, 255 ,0.8);
+    color: black;
+}
+
+.div_5{
+    display: flex;
+    margin: 2%;
+    color: greenyellow;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    font-size: x-large;
+}
+
+
+.div_1 h3{
+    text-align: center;
+    padding: 40% 0;
+    font-size: x-large;
+}
+
+/*   FOR APPLE USERS    */
+
+
+#apple_1{
+    background: url("https://i.pinimg.com/originals/b9/9f/f2/b99ff2cad99afdd11dc49c9de7b86719.jpg") no-repeat center center; 
+}
+
+
+/*   FOR MOBILE USERS    */
+
+@media only screen and (max-width:650px){
+    .div_1{
+        flex-direction: column;
+    }
+}
+
+</style>
+
+<script type="text/javascript"> 
+
+
+    if(navigator.userAgent.match(/iPhone/i)){
+
+       document.getElementById("apple_default").id="apple_1";
+    }
+
+
+    function submit_buy(){
+        document.getElementById("sub_buy").submit();
+    }
+
+</script>
+
+
+
+
+</html>
