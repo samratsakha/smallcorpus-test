@@ -1,0 +1,8 @@
+Flask==1.1.2
+textblob==0.15.3
+joblib==0.16.0
+jsonify==0.5
+requests==2.25.0
+beautifulsoup4==4.9.3
+scikit_learn==0.24.0
+gunicorn
