@@ -75,12 +75,6 @@ def scrap_reviews(mob_name):
 
 
 
-# flask templates
-@app.route('/',methods=['GET'])
-def Home():
-    return render_template('home.html')
-
-
 
 # sentiment analysis function 
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -133,6 +127,77 @@ def decision_maker(final_review , rate_review):
 
 
 
+# mobile id 
+def getmobid(passed_argument):
+    switcher_2 = {
+    
+        "4":1,   
+        "4S":2,
+        "5":3,
+        "5S":4,
+        "5C":5,
+
+        "SE":6,
+        "6":7,
+        "6S":8,
+        "6PLUS":9,
+        "6SPLUS":10,
+
+        "7":11,
+        "7PLUS":12,
+        "8":13,
+        "8PLUS":14,
+        "X":15,
+
+        "XS":16,
+        "XSMAX":17,
+        "XR":18,
+        "11":19,
+        "11PRO":20,
+
+        "11PROMAX":21,
+        "12":22,
+        "12MINI":23,
+        "12PRO":24,
+        "12PROMAX":25,
+        "SE2020":14
+
+    } 
+    return switcher_2.get(passed_argument)
+
+
+# coverts Y/N to 1 and 0
+def string_to_binary(pass_argument):
+    if(pass_argument=="YES"):
+        pass_argument=1
+    else:
+        pass_argument=0
+    return pass_argument
+
+
+
+
+# function for predicting prices of iphone
+def price_predicter(mob_model,vart,pd,sd,hd,bt,kt):
+    mob_id = getmobid(mob_model)
+    pd = string_to_binary(pd)
+    sd = string_to_binary(sd)
+    hd = string_to_binary(hd)
+    kt = string_to_binary(kt)
+
+    prediction_price = model.predict([[ mob_id , vart , pd , sd , hd , bt , kt ]])
+
+    return prediction_price
+
+
+
+
+# flask templates
+@app.route('/',methods=['GET'])
+def Home():
+    return render_template('home.html')
+
+
 # home to buy 
 @app.route("/buy", methods=['POST'])
 def gotobuy():
@@ -156,7 +221,13 @@ def review_this():
         sentiment_review,sentiment_rate=0,0
         count=0 
 
-        model_mob=request.form['model_mob']
+        model_mob = request.form['model_mob']
+        variant = request.form['variant']
+        model_mob = model_mob.replace(" ","")
+
+        predicted_price = price_predicter(model_mob,variant,"NO","NO","NO",85,"YES")
+        predicted_price = round(predicted_price[0],0)
+        predicted_price = predicted_price.astype(int)
 
         review_html = scrap_reviews(model_mob)
 
@@ -194,7 +265,8 @@ def review_this():
         classification_text_2="4 Star Rating {}".format(rt_4),
         classification_text_3="3 Star Rating {}".format(rt_3),
         classification_text_4="2 Star Rating {}".format(rt_2),
-        classification_text_5="1 Star Rating {}".format(rt_1))
+        classification_text_5="1 Star Rating {}".format(rt_1),
+        prediction_price_mob="Price of mobile is {}".format(predicted_price))
         
     else:
 

@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iPhone Resales Corner - Buy iPhone</title>
@@ -20,7 +19,7 @@
         </header>
 
 
-        <form action="{{ url_for('review_this')}}" method="post">
+        <form action="{{ url_for('review_this')}}" method="post" id="myform">
 
             <div class="div_5">
                 <br><br>
@@ -32,8 +31,7 @@
 
                 <div class="model_div">
                     <h3>Model</h3><br>
-                    <select name="model_mob" id="model_but" class="get_val" required="required"
-                        onchange="change_variants()">
+                    <select name="model_mob" id="model_but" class="get_val" onchange="change_variants()">
                         <option value="4">4</option>
                         <option value="4S">4S</option>
                         <option value="5">5</option>
@@ -72,7 +70,7 @@
 
                 <div class="variant_div">
                     <h3>Variant</h3><br>
-                    <select name="variant" id="variant_but" class="get_val_2" required="required">
+                    <select name="variant" id="variant_but" class="get_val_2" required>
                         <option value="16">16 GB</option>
                         <option value="32">32 GB</option>
                     </select>
@@ -84,7 +82,7 @@
 
 
             <div class="div_4">
-                <br><br><button id="sub" type="submit ">Get Price</button>
+                <br><br><button id="sub" type="submit">Get Price</button>
                 <br><br><br>
             </div>
 
@@ -103,14 +101,17 @@
             <a href="#choose_list"><button id="btn_sgst" onclick="suggestme()">Suggest iPhones</button></a>
 
             <h2 id="choose_list" style="visibility: hidden;">Choose any iPhone from the below suggested list</h2>
-            <form>
-            <select id="iPhone_selected" style="visibility: hidden;">
-                <option></option>
-            </select>
+            <form action="{{ url_for('review_this')}}" method="post">
+                <select name="model_mob" id="iPhone_selected" style="visibility: hidden;">
+                    <option></option>
+                </select>
+                <select name="variant" style="display: none;">
+                    <option value="16"></option>
+                </select>
 
-            <button id="choosed_iphone" style="visibility: hidden;" type="submit">Get Price</button>
+                <button id="choosed_iphone" style="visibility: hidden;">Get Price</button>
             </form>
-    
+
         </div>
 
 
@@ -292,7 +293,7 @@
         background-color: rgb(255, 230, 0);
     }
 
-    .budget{
+    .budget {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -302,32 +303,32 @@
         color: white;
     }
 
-    .budget h2{
+    .budget h2 {
         margin: 1%;
     }
 
-    .budget h3{
+    .budget h3 {
         margin: 2%;
     }
 
-    .budget input{
+    .budget input {
         margin: 1%;
     }
 
-    .budget a{
+    .budget a {
         margin: 2%;
     }
 
-    #choose_list{
+    #choose_list {
         color: rgb(255, 255, 255);
     }
 
-    #price_enter{
+    #price_enter {
         height: 25px;
         border-radius: 15px;
     }
 
-    #btn_sgst{
+    #btn_sgst {
         height: 50px;
         width: 100px;
         font-weight: bolder;
@@ -336,7 +337,7 @@
         background-color: rgb(129, 106, 106);
     }
 
-    #btn_sgst:hover{
+    #btn_sgst:hover {
         cursor: pointer;
         border: solid 3px rgb(112, 97, 97);
         font-size: small;
@@ -345,7 +346,7 @@
         font-weight: bolder;
     }
 
-    #choosed_iphone{
+    #choosed_iphone {
         height: 50px;
         width: 100px;
         font-weight: bolder;
@@ -353,10 +354,10 @@
         border-radius: 30px;
         background-color: rgb(129, 106, 106);
         margin: 7%;
-        
+
     }
 
-    #choosed_iphone:hover{
+    #choosed_iphone:hover {
         cursor: pointer;
         border: solid 3px rgb(112, 97, 97);
         font-size: small;
@@ -396,6 +397,7 @@
         .div_1 {
             flex-direction: column;
         }
+
         .div_3 {
             flex-direction: column;
         }
@@ -482,29 +484,29 @@
     }
 
     // Suggesting iPhones for a specific Budget
-    var budget_price=0;
+    var budget_price = 0;
     var get_selected;
-    function suggestme(){
-        budget_price=document.getElementById("price_enter").value;
-        get_selected=document.getElementById("iPhone_selected");
+    function suggestme() {
+        budget_price = document.getElementById("price_enter").value;
+        get_selected = document.getElementById("iPhone_selected");
 
-        if(budget_price==""){
+        if (budget_price == "") {
             alert("Enter your Budget");
-            document.getElementById("price_enter").style.border="solid 4px red";
+            document.getElementById("price_enter").style.border = "solid 4px red";
             return;
         }
-        else{
-            document.getElementById("price_enter").style.border="none";
+        else {
+            document.getElementById("price_enter").style.border = "none";
         }
 
         // No iphones less than 2000
-        if(budget_price<2000){
+        if (budget_price < 2000) {
             alert("Sorry\nThere are no iPhones under ₹2,000");
             return;
         }
 
         // No iphones greater than 140000
-        if(budget_price>140000){
+        if (budget_price > 140000) {
             alert("Sorry\nThere are no iPhones above ₹1,40,000");
             return;
         }
@@ -514,48 +516,68 @@
         }
 
         // 2000 - 4200  
-        if(budget_price<=4200){
-            var suggest_list=["4 | 4", "4S | 4S"];
+        if (budget_price <= 4200) {
+            var suggest_list = ["4 | 4", "4S | 4S"];
         }
 
-        // 4200 - 7300
-        if(budget_price>4200 && budget_price<=7300){
-            var suggest_list=["5 | 5", "5C | 5C" , "5S | 5S" , "6 | 6" , "6PLUS | 6PLUS"];
+        // 4200 - 5600
+        if (budget_price > 4200 && budget_price <= 5600) {
+            var suggest_list = ["5 | 5", "5C | 5C", "5S | 5S"];
+        }
+
+        // 5600 - 7300
+        if (budget_price > 5600 && budget_price <= 7300) {
+            var suggest_list = ["5S | 5S", "6 | 6", "6PLUS | 6PLUS"];
         }
 
         // 7300 - 10900
-        if(budget_price>7300 && budget_price<=10900){
-            var suggest_list=["SE | SE", "6S | 6S" , "6SPLUS | 6SPLUS" ];
+        if (budget_price > 7300 && budget_price <= 10900) {
+            var suggest_list = ["SE | SE", "6S | 6S", "6SPLUS | 6SPLUS"];
         }
 
-        // 10900 - 22300
-        if(budget_price>10900 && budget_price<=22300){
-            var suggest_list=["7 | 7", "7PLUS | 7PLUS" , "8 | 8" ];
+        // 10900 - 14300
+        if (budget_price > 10900 && budget_price <= 14300) {
+            var suggest_list = ["7 | 7", "6SPLUS | 6SPLUS"];
         }
 
-         // 22300 - 42100
-         if(budget_price>22300 && budget_price<=42100){
-            var suggest_list=["8PLUS | 8PLUS", "SE2020 | SE2020", "X | X" , "XR | XR"];
+        // 14300 - 22300
+        if (budget_price > 14300 && budget_price <= 22300) {
+            var suggest_list = ["7PLUS | 7PLUS", "8 | 8"];
+        }
+
+        // 22300 - 29900
+        if (budget_price > 22300 && budget_price <= 29900) {
+            var suggest_list = ["8PLUS | 8PLUS" , "SE2020 | SE2020",];
+        }
+
+        // 29900 - 42100
+        if (budget_price > 29900 && budget_price <= 42100) {
+            var suggest_list = ["SE2020 | SE2020", "X | X", "XR | XR"];
         }
 
         // 42100 - 58400
-        if(budget_price>42100 && budget_price<=58400){
-            var suggest_list=[ "XS | XS","XSMAX | XSMAX", "11 | 11"];
+        if (budget_price > 42100 && budget_price <= 58400) {
+            var suggest_list = ["XS | XS", "XSMAX | XSMAX", "11 | 11"];
         }
 
         // 58400 - 63300
-        if(budget_price>58400 && budget_price<=63300){
-            var suggest_list=["11PRO | 11PRO", "12MINI | 12MINI"];
+        if (budget_price > 58400 && budget_price <= 63300) {
+            var suggest_list = ["11PRO | 11PRO", "12MINI | 12MINI"];
         }
 
         // 63300 - 85200
-        if(budget_price>63300 && budget_price<=85200){
-            var suggest_list=["11PROMAX | 11PROMAX", "12 | 12"];
+        if (budget_price > 63300 && budget_price <= 85200) {
+            var suggest_list = ["11PROMAX | 11PROMAX", "12 | 12"];
         }
 
-        // 85200
-        if(budget_price>85200){
-            var suggest_list=["12PRO | 12PRO", "12PROMAX | 12PROMAX"];
+        // 85200 - 99400
+        if (budget_price > 85200 && budget_price <= 99400) {
+            var suggest_list = ["12PRO | 12PRO"];
+        }
+
+        // greater than 99400
+        if (budget_price > 99400) {
+            var suggest_list = ["12PRO | 12PRO", "12PROMAX | 12PROMAX"];
         }
 
         for (var option in suggest_list) {
@@ -568,12 +590,15 @@
             get_selected.options.add(newOption);
         }
 
-        get_selected.style.visibility="visible";
-        document.getElementById("choose_list").style.visibility="visible";
-        document.getElementById("choosed_iphone").style.visibility="visible";
+        get_selected.style.visibility = "visible";
+        document.getElementById("choose_list").style.visibility = "visible";
+        document.getElementById("choosed_iphone").style.visibility = "visible";
 
-        
+
     }
+
+    // to solve bug - when window-back, variants not loading
+    setTimeout(change_variants,100);
 
 
 </script>
