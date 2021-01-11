@@ -21,19 +21,65 @@ cv_2 = pickle.load(open("cv_2_mobile.pkl","rb"))
 cv_3 = pickle.load(open("cv_2_mobile_rating.pkl","rb"))
 loaded_model = pickle.load(open('model_mobile.pkl',"rb"))
 loaded_model_2 = pickle.load(open('model_mobile_rating.pkl',"rb"))
+model = pickle.load(open('decision_1_model.pkl','rb'))
+
+
+
+# generate url for mobiles
+def getUrl(argument_1):
+    switcher = {
+
+        '4': "https://gadgets.ndtv.com/apple-iphone-4-765/user-reviews",
+        '4S': "https://gadgets.ndtv.com/apple-iphone-4s-768/user-reviews",
+        '5': "https://gadgets.ndtv.com/apple-iphone-5-771/user-reviews",
+        '5S': "https://gadgets.ndtv.com/apple-iphone-5s-1028/user-reviews",
+        '5C': "https://gadgets.ndtv.com/apple-iphone-5c-1027/user-reviews",
+
+        'SE': "https://gadgets.ndtv.com/apple-iphone-se-3393/user-reviews",
+        '6': "https://gadgets.ndtv.com/apple-iphone-6-1973/user-reviews",
+        '6S': "https://gadgets.ndtv.com/apple-iphone-6s-2952/user-reviews",
+        '6PLUS': "https://gadgets.ndtv.com/apple-iphone-6-plus-1974/user-reviews",
+        '6SPLUS': "https://gadgets.ndtv.com/apple-iphone-6s-plus-2955/user-reviews",
+
+        '7': "https://gadgets.ndtv.com/apple-iphone-7-3766/user-reviews",
+        '7PLUS': "https://gadgets.ndtv.com/apple-iphone-7-plus-3767/user-reviews",
+        '8': "https://gadgets.ndtv.com/apple-iphone-8-4260/user-reviews",
+        '8PLUS': "https://gadgets.ndtv.com/apple-iphone-8-plus-4259/user-reviews",
+        'X': "https://gadgets.ndtv.com/apple-iphone-x-4258/user-reviews",
+
+        'XS': "https://gadgets.ndtv.com/apple-iphone-xs-5645/user-reviews",
+        'XSMAX': "https://gadgets.ndtv.com/apple-iphone-xs-max-5646/user-reviews",
+        'XR': "https://gadgets.ndtv.com/apple-iphone-xr-5647/user-reviews",
+        '11': "https://gadgets.ndtv.com/apple-iphone-11-price-in-india-91110/user-reviews",
+        '11PRO': "https://gadgets.ndtv.com/apple-iphone-11-pro-price-in-india-91112/user-reviews",
+
+        '11PROMAX': "https://gadgets.ndtv.com/apple-iphone-11-pro-max-price-in-india-91111/user-reviews",
+        '12': "https://gadgets.ndtv.com/iphone-12-price-in-india-97670/user-reviews",
+        '12MINI': "https://gadgets.ndtv.com/iphone-12-mini-price-in-india-97685/user-reviews",
+        '12PRO': "https://gadgets.ndtv.com/iphone-12-pro-price-in-india-97687/user-reviews",
+        '12PROMAX': "https://gadgets.ndtv.com/iphone-12-pro-max-price-in-india-97686/user-reviews",
+        'SE2020': "https://gadgets.ndtv.com/apple-iphone-se-2020-price-in-india-91195/user-reviews"
+
+    }
+    return switcher.get(argument_1)
 
 
 # soup web scrapper
-url = "https://gadgets.ndtv.com/apple-iphone-11-price-in-india-91110/user-reviews"
-r = requests.get(url)
-htmlContent = r.content
-soup = BeautifulSoup(htmlContent, 'html.parser')
-review_html = soup.find_all('div',class_="_cmttxt _wwrap")
+def scrap_reviews(mob_name):
+    url = getUrl(mob_name)
+    r = requests.get(url)
+    htmlContent = r.content
+    soup = BeautifulSoup(htmlContent, 'html.parser')
+    review_html = soup.find_all('div',class_="_cmttxt _wwrap")
+    return review_html
+
+
 
 # flask templates
 @app.route('/',methods=['GET'])
 def Home():
     return render_template('home.html')
+
 
 
 # sentiment analysis function 
@@ -87,17 +133,16 @@ def decision_maker(final_review , rate_review):
 
 
 
-
+# home to buy 
 @app.route("/buy", methods=['POST'])
 def gotobuy():
     return render_template('index.html')
 
 
+
 # evaluating sentiments
-
-
-@app.route("/classify", methods=['POST'])
-def classify():
+@app.route("/review", methods=['POST'])
+def review_this():
     pos,neg,neut=0,0,0
     rt_1,rt_2,rt_3,rt_4,rt_5=0,0,0,0,0
     sentiment_review,sentiment_rate=0,0
@@ -111,7 +156,9 @@ def classify():
         sentiment_review,sentiment_rate=0,0
         count=0 
 
-        review_text=request.form['enter_review']
+        model_mob=request.form['model_mob']
+
+        review_html = scrap_reviews(model_mob)
 
         for i in review_html:
            text = i.get_text()
@@ -139,7 +186,7 @@ def classify():
 
         
         
-        return render_template('index.html',classification_text="Total Review {}".format(count) , 
+        return render_template('review.html',classification_text="Total Review {}".format(count) , 
         prediction_text="Positive Review is {}".format(pos), 
         prediction_text_1="Neutral Review is {}".format(neut), 
         prediction_text_2="Negative Review is {}".format(neg),
@@ -151,7 +198,7 @@ def classify():
         
     else:
 
-        return render_template('index.html')
+        return render_template('review.html')
 
 
 

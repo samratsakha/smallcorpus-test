@@ -2,32 +2,583 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deploy Test</title>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone Resales Corner - Buy iPhone</title>
 </head>
 
 <body>
-  <div>
-    <form action="{{ url_for('classify')}}" method="post">
-      <input type="text" name="enter_review">
-    </form>
-  </div>
 
-  <div class="div_5">
-    <br><br>
-    <h3>{{ classification_text }}<h3>
-    <h3>{{ prediction_text }}</h3>
-    <h3>{{ prediction_text_1 }}</h3>
-    <h3>{{ prediction_text_2 }}</h3>
-    <br>
-    <h3>{{ classification_text_1 }}<h3>
-    <h3>{{ classification_text_2 }}<h3>
-    <h3>{{ classification_text_3 }}<h3>
-    <h3>{{ classification_text_4 }}<h3>
-    <h3>{{ classification_text_5 }}<h3></h3>
-  </div>
+
+
+    <div class="main-content" id="apple_default">
+
+        <header class="header">
+            <h1 id="platform">iPhone Resales Corner</h1><br>
+        </header>
+
+
+        <form action="{{ url_for('review_this')}}" method="post">
+
+            <div class="div_5">
+                <br><br>
+                <h3>Choose model and variant<h3>
+            </div>
+
+
+            <div class="div_1">
+
+                <div class="model_div">
+                    <h3>Model</h3><br>
+                    <select name="model_mob" id="model_but" class="get_val" required="required"
+                        onchange="change_variants()">
+                        <option value="4">4</option>
+                        <option value="4S">4S</option>
+                        <option value="5">5</option>
+                        <option value="5S">5S</option>
+                        <option value="5C">5C</option>
+
+                        <option value="SE">SE</option>
+                        <option value="6">6</option>
+                        <option value="6S">6S</option>
+                        <option value="6PLUS">6PLUS</option>
+                        <option value="6SPLUS">6SPLUS</option>
+
+                        <option value="7">7</option>
+                        <option value="7PLUS">7PLUS</option>
+                        <option value="8">8</option>
+                        <option value="8PLUS">8PLUS</option>
+                        <option value="X">X</option>
+
+                        <option value="XS">XS</option>
+                        <option value="XSMAX">XSMAX</option>
+                        <option value="XR">XR</option>
+                        <option value="SE2020">SE2020</option>
+                        <option value="11">11</option>
+                        <option value="11PRO">11PRO</option>
+
+
+                        <option value="11PROMAX">11PROMAX</option>
+                        <option value="12">12</option>
+                        <option value="12MINI">12MINI</option>
+                        <option value="12PRO">12PRO</option>
+                        <option value="12PROMAX">12PROMAX</option>
+
+
+                    </select>
+                </div>
+
+                <div class="variant_div">
+                    <h3>Variant</h3><br>
+                    <select name="variant" id="variant_but" class="get_val_2" required="required">
+                        <option value="16">16 GB</option>
+                        <option value="32">32 GB</option>
+                    </select>
+                </div>
+
+
+            </div>
+
+
+
+            <div class="div_4">
+                <br><br><button id="sub" type="submit ">Get Price</button>
+                <br><br><br>
+            </div>
+
+
+
+        </form><br>
+
+
+        <div class="budget">
+            <h2 style="color: rgb(152, 235, 29);">Confused to buy which one?</h2>
+            <h3>Tell us your average budget to buy an iPhone..!</h3>
+            <h3>We will suggest you some iPhones</h3>
+            <h3>Enter your Budget</h3>
+            <input type="number" id="price_enter" placeholder=" Enter your Budget ">
+            <h4>Price should entered be in INR - ₹</h4>
+            <a href="#choose_list"><button id="btn_sgst" onclick="suggestme()">Suggest iPhones</button></a>
+
+            <h2 id="choose_list" style="visibility: hidden;">Choose any iPhone from the below suggested list</h2>
+            <form>
+            <select id="iPhone_selected" style="visibility: hidden;">
+                <option></option>
+            </select>
+
+            <button id="choosed_iphone" style="visibility: hidden;" type="submit">Get Price</button>
+            </form>
+    
+        </div>
+
+
+
+
+
+        <br><br>
+
+    </div>
+
+
+    <footer class="foot">
+        <br>
+        <h2>© iPhone Resales Corner 2021 All Rights Reserved</h2><br>
+        <h3>Contact - iphoneresalescorner@gmail.com</h3><br>
+    </footer>
+
 
 </body>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+
+    body {
+        height: 100%;
+        font-family: 'Times New Roman', Times, serif;
+        color: rgb(218, 123, 15);
+        text-shadow: 2px 2px #000000;
+        font-weight: bolder;
+        background-color: black;
+        text-align: center;
+    }
+
+    .main-content {
+        background: url("https://www.pixel4k.com/wp-content/uploads/2018/03/Dark%20Metal%20Apple3724615454.jpg") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        margin-bottom: 0;
+    }
+
+    .foot {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        justify-items: center;
+        background-color: black;
+        color: rgb(152, 235, 29);
+    }
+
+
+    #get_value {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        justify-items: center;
+    }
+
+
+    header {
+        color: rgb(152, 235, 29);
+        background-color: rgba(0, 0, 0, 0.4);
+        font-family: 'Cinzel', serif;
+        font-size: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        justify-items: center;
+        position: sticky;
+        top: 0;
+    }
+
+
+    header h1 {
+        margin: 1%;
+    }
+
+
+    .div_1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        justify-items: center;
+    }
+
+    .model_div {
+        color: white;
+        margin: 2%;
+    }
+
+    .variant_div {
+        color: white;
+        margin: 2%;
+    }
+
+    .div_4 {
+        display: flex;
+        margin: 2%;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        justify-items: center;
+    }
+
+    .div_5 {
+        display: flex;
+        margin: 2%;
+        color: greenyellow;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        justify-items: center;
+        font-size: x-large;
+    }
+
+
+
+    #sub {
+        height: 50px;
+        width: 100px;
+        font-weight: bolder;
+        border: solid 3px rgb(149, 223, 12);
+        border-radius: 30px;
+        background-color: rgb(129, 106, 106);
+    }
+
+    #sub:hover {
+        cursor: pointer;
+        border: solid 3px rgb(112, 97, 97);
+        font-size: medium;
+        background-color: rgb(72, 255, 0);
+        border-radius: 50px;
+        font-weight: bolder;
+    }
+
+    #model_but {
+        font-weight: bolder;
+        height: 40px;
+        width: 100px;
+        border: solid 3px rgb(42, 6, 173);
+        border-radius: 30px;
+        background-color: rgb(218, 198, 24);
+    }
+
+    #model_but:hover {
+        cursor: pointer;
+        height: 40px;
+        width: 100px;
+        border: solid 3px rgb(55, 0, 255);
+        border-radius: 30px;
+        background-color: rgb(255, 230, 0);
+    }
+
+    #variant_but {
+        font-weight: bolder;
+        height: 40px;
+        width: 100px;
+        border: solid 3px rgb(42, 6, 173);
+        border-radius: 30px;
+        background-color: rgb(218, 198, 24);
+    }
+
+    #variant_but:hover {
+        cursor: pointer;
+        height: 40px;
+        width: 100px;
+        border: solid 3px rgb(55, 0, 255);
+        border-radius: 30px;
+        background-color: rgb(255, 230, 0);
+    }
+
+    .budget{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        justify-items: center;
+        color: white;
+    }
+
+    .budget h2{
+        margin: 1%;
+    }
+
+    .budget h3{
+        margin: 2%;
+    }
+
+    .budget input{
+        margin: 1%;
+    }
+
+    .budget a{
+        margin: 2%;
+    }
+
+    #choose_list{
+        color: rgb(255, 255, 255);
+    }
+
+    #price_enter{
+        height: 25px;
+        border-radius: 15px;
+    }
+
+    #btn_sgst{
+        height: 50px;
+        width: 100px;
+        font-weight: bolder;
+        border: solid 3px rgb(149, 223, 12);
+        border-radius: 30px;
+        background-color: rgb(129, 106, 106);
+    }
+
+    #btn_sgst:hover{
+        cursor: pointer;
+        border: solid 3px rgb(112, 97, 97);
+        font-size: small;
+        background-color: rgb(72, 255, 0);
+        border-radius: 50px;
+        font-weight: bolder;
+    }
+
+    #choosed_iphone{
+        height: 50px;
+        width: 100px;
+        font-weight: bolder;
+        border: solid 3px rgb(149, 223, 12);
+        border-radius: 30px;
+        background-color: rgb(129, 106, 106);
+        margin: 7%;
+        
+    }
+
+    #choosed_iphone:hover{
+        cursor: pointer;
+        border: solid 3px rgb(112, 97, 97);
+        font-size: small;
+        background-color: rgb(72, 255, 0);
+        border-radius: 50px;
+        font-weight: bolder;
+    }
+
+    #iPhone_selected {
+        font-weight: bolder;
+        height: 30px;
+        width: 100px;
+        border: solid 3px rgb(255, 255, 255);
+        background-color: rgb(218, 198, 24);
+        margin: 2%;
+    }
+
+    #iPhone_selected:hover {
+        cursor: pointer;
+        background-color: rgb(255, 230, 0);
+    }
+
+
+
+    /*   FOR APPLE USERS    */
+
+
+    #apple_1 {
+        background: url("https://i.pinimg.com/originals/b9/9f/f2/b99ff2cad99afdd11dc49c9de7b86719.jpg") no-repeat center center;
+    }
+
+
+
+    /*   FOR MOBILE USERS    */
+
+    @media only screen and (max-width:400px) {
+        .div_1 {
+            flex-direction: column;
+        }
+        .div_3 {
+            flex-direction: column;
+        }
+    }
+</style>
+
+
+
+<script type="text/javascript">
+
+
+    if (navigator.userAgent.match(/iPhone/i)) {
+
+
+        document.getElementById("model_but").id = "apple_model_but";
+        document.getElementById("variant_but").id = "apple_variant_but";
+
+        document.getElementById("apple_default").id = "apple_1";
+
+    }
+
+    var mod = "";
+
+    function change_variants() {
+
+        var s1 = document.getElementsByClassName("get_val");
+        var s2 = document.getElementsByClassName("get_val_2");
+
+        for (var i = s2[0].length - 1; i >= 0; i--) {
+            s2[0].remove(s2[0].i);
+        }
+
+
+        // iphone 4
+        if (s1[0].value == "4") {
+            var array = ["16 | 16 GB", "32 | 32GB"];
+        }
+
+        // iphone 4s 5 5s 5c
+        if (s1[0].value == "4S" || s1[0].value == "5" || s1[0].value == "5S" || s1[0].value == "5C") {
+            var array = ["16 | 16 GB", "32 | 32 GB", "64 | 64 GB"];
+        }
+
+        // iphone se 6 6s 6plus 6splus
+        if (s1[0].value == "SE" || s1[0].value == "6" || s1[0].value == "6S" || s1[0].value == "6PLUS" || s1[0].value == "6SPLUS") {
+            var array = ["16 | 16 GB", "32 | 32 GB", "64 | 64 GB", "128 | 128 GB"];
+        }
+
+        // iphone 7 and 7plus
+        if (s1[0].value == "7" || s1[0].value == "7PLUS") {
+            var array = ["32 | 32 GB", "128 | 128 GB", "256 | 256 GB"];
+        }
+
+        // iphone 8  8plus x
+        if (s1[0].value == "8" || s1[0].value == "8PLUS" || s1[0].value == "X") {
+            var array = ["64 | 64 GB", "256 | 256 GB"];
+        }
+
+        // iphone xs xsmax 11pro 11promax
+        if (s1[0].value == "XS" || s1[0].value == "XSMAX" || s1[0].value == "11PRO" || s1[0].value == "11PROMAX") {
+            var array = ["64 | 64 GB", "256 | 256 GB", "512 | 512 GB"];
+        }
+
+        // iphone xr 11 12 12mini se2020
+        if (s1[0].value == "XR" || s1[0].value == "11" || s1[0].value == "12" || s1[0].value == "12MINI" || s1[0].value == "SE2020") {
+            var array = ["64 | 64 GB", "128 | 128 GB", "256 | 256 GB"];
+        }
+
+        // iphone 12pro and 12promax
+        if (s1[0].value == "12PRO" || s1[0].value == "12PROMAX") {
+            var array = ["64 | 128 GB", "128 | 256 GB", "256 | 512 GB"];
+        }
+
+        for (var option in array) {
+            var pair = array[option].split("|");
+            var newOption = document.createElement("option");
+
+            newOption.value = pair[0];
+            newOption.innerHTML = pair[1];
+
+            s2[0].options.add(newOption);
+        }
+
+    }
+
+    // Suggesting iPhones for a specific Budget
+    var budget_price=0;
+    var get_selected;
+    function suggestme(){
+        budget_price=document.getElementById("price_enter").value;
+        get_selected=document.getElementById("iPhone_selected");
+
+        if(budget_price==""){
+            alert("Enter your Budget");
+            document.getElementById("price_enter").style.border="solid 4px red";
+            return;
+        }
+        else{
+            document.getElementById("price_enter").style.border="none";
+        }
+
+        // No iphones less than 2000
+        if(budget_price<2000){
+            alert("Sorry\nThere are no iPhones under ₹2,000");
+            return;
+        }
+
+        // No iphones greater than 140000
+        if(budget_price>140000){
+            alert("Sorry\nThere are no iPhones above ₹1,40,000");
+            return;
+        }
+
+        for (var i = get_selected.length - 1; i >= 0; i--) {
+            get_selected.remove(get_selected.i);
+        }
+
+        // 2000 - 4200  
+        if(budget_price<=4200){
+            var suggest_list=["4 | 4", "4S | 4S"];
+        }
+
+        // 4200 - 7300
+        if(budget_price>4200 && budget_price<=7300){
+            var suggest_list=["5 | 5", "5C | 5C" , "5S | 5S" , "6 | 6" , "6PLUS | 6PLUS"];
+        }
+
+        // 7300 - 10900
+        if(budget_price>7300 && budget_price<=10900){
+            var suggest_list=["SE | SE", "6S | 6S" , "6SPLUS | 6SPLUS" ];
+        }
+
+        // 10900 - 22300
+        if(budget_price>10900 && budget_price<=22300){
+            var suggest_list=["7 | 7", "7PLUS | 7PLUS" , "8 | 8" ];
+        }
+
+         // 22300 - 42100
+         if(budget_price>22300 && budget_price<=42100){
+            var suggest_list=["8PLUS | 8PLUS", "SE2020 | SE2020", "X | X" , "XR | XR"];
+        }
+
+        // 42100 - 58400
+        if(budget_price>42100 && budget_price<=58400){
+            var suggest_list=[ "XS | XS","XSMAX | XSMAX", "11 | 11"];
+        }
+
+        // 58400 - 63300
+        if(budget_price>58400 && budget_price<=63300){
+            var suggest_list=["11PRO | 11PRO", "12MINI | 12MINI"];
+        }
+
+        // 63300 - 85200
+        if(budget_price>63300 && budget_price<=85200){
+            var suggest_list=["11PROMAX | 11PROMAX", "12 | 12"];
+        }
+
+        // 85200
+        if(budget_price>85200){
+            var suggest_list=["12PRO | 12PRO", "12PROMAX | 12PROMAX"];
+        }
+
+        for (var option in suggest_list) {
+            var pair = suggest_list[option].split("|");
+            var newOption = document.createElement("option");
+
+            newOption.value = pair[0];
+            newOption.innerHTML = pair[1];
+
+            get_selected.options.add(newOption);
+        }
+
+        get_selected.style.visibility="visible";
+        document.getElementById("choose_list").style.visibility="visible";
+        document.getElementById("choosed_iphone").style.visibility="visible";
+
+        
+    }
+
+
+</script>
+
+
+
 
 </html>
