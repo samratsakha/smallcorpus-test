@@ -65,6 +65,7 @@ def getUrl(argument_1):
 
 
 # soup web scrapper
+# scrap user reviews
 def scrap_reviews(mob_name):
     url = getUrl(mob_name)
     r = requests.get(url)
@@ -72,6 +73,48 @@ def scrap_reviews(mob_name):
     soup = BeautifulSoup(htmlContent, 'html.parser')
     review_html = soup.find_all('div',class_="_cmttxt _wwrap")
     return review_html
+
+# scrap tech reviews
+def scrap_tech_reviews(mob_name):
+    url = getUrl(mob_name)
+    new_url = url.replace("/user-reviews" , "")
+    r = requests.get(new_url)
+    htmlContent = r.content
+    soup = BeautifulSoup(htmlContent, 'html.parser')
+    tech_html = soup.find_all('i')
+
+    list_class = []
+
+    class_list = set()
+    for i in tech_html:
+        if i.has_attr("class"):
+            x = str(i)
+            list_class.append(x)
+
+    string =""
+    count=0
+    print(new_url)
+    for i in list_class:
+        if (i.find('_sp r6')!=-1):
+            string+='6 ' 
+            count+=1
+        elif (i.find('_sp r7')!=-1):
+            string+='7 '
+            count+=1
+        elif (i.find('_sp r8')!=-1):
+            string+='8 ' 
+            count+=1
+        elif (i.find('_sp r9')!=-1):
+            string+='9 '
+            count+=1
+        elif (i.find('_sp r10')!=-1):
+            string+='10 '
+            count+=1
+        elif(count==8):
+            break
+    
+    return string 
+  
 
 
 
@@ -257,20 +300,40 @@ def review_this():
 
         
         
-        return render_template('review.html',classification_text="Total Review {}".format(count) , 
-        prediction_text="Positive Review is {}".format(pos), 
-        prediction_text_1="Neutral Review is {}".format(neut), 
-        prediction_text_2="Negative Review is {}".format(neg),
-        classification_text_1="5 Star Rating {}".format(rt_5),
-        classification_text_2="4 Star Rating {}".format(rt_4),
-        classification_text_3="3 Star Rating {}".format(rt_3),
-        classification_text_4="2 Star Rating {}".format(rt_2),
-        classification_text_5="1 Star Rating {}".format(rt_1),
-        prediction_price_mob="Price of mobile is {}".format(predicted_price))
+        return render_template('review.html',classification_text=count , 
+        prediction_text=pos, 
+        prediction_text_1=neut, 
+        prediction_text_2=neg,
+        classification_text_1=rt_5,
+        classification_text_2=rt_4,
+        classification_text_3=rt_3,
+        classification_text_4=rt_2,
+        classification_text_5=rt_1,
+        prediction_price_mob=predicted_price,
+        mobile_model_name=model_mob)
         
     else:
 
         return render_template('review.html')
+
+
+# scrap the tech ratings
+@app.route("/tech_review", methods=['POST'])
+def tech_review():
+    if request.method == 'POST':
+        model_of_mob = request.form['model_mob_name']
+        model_of_mob = model_of_mob.replace(" ","")
+
+        get_tech = scrap_tech_reviews(model_of_mob)
+
+        return render_template('tech_review.html',tech_reviews=get_tech)
+
+    else:
+
+        return render_template('tech_review.html')
+
+
+        
 
 
 
