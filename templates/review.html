@@ -27,6 +27,10 @@
       <div id="excellent_price"></div>
     </div>
 
+    <a><button id="goto_olx_1"></button></a><br><br>
+
+    <h2 id="user_reviews_heading">User Reviews</h2>
+
 
     <div class="content_1">
 
@@ -68,6 +72,7 @@
       </select>
     </form>
 
+    <a><button id="goto_olx_2"></button></a><br>
     <br><button id="subtheform" onclick="sub_form()" >See Tech Reviews</button>
 
   </div>
@@ -218,6 +223,13 @@
     background-color: green;
     border: solid 4px black;
   }
+
+  #user_reviews_heading{
+    font-size: x-large;
+    font-weight: bolder;
+    color: white;
+  }
+  
 
 
 
@@ -403,15 +415,22 @@
   document.getElementById("average_price").innerHTML = "Average Condition: "+average;
   document.getElementById("good_price").innerHTML = "Good Condition: "+ price;
   document.getElementById("excellent_price").innerHTML = "Excellent Condition: "+ excellent;
+  document.getElementById("goto_olx_1").innerHTML = "Buy this iPhone "+mob_model;
+  document.getElementById("goto_olx_2").innerHTML = "Buy this iPhone "+mob_model;
 
-
+  
   function sub_form(){
-    if(mob_model=='4' || mob_model=='4S' || mob_model=='5' || mob_model=='5S'){
+    if(mob_model=='4' || mob_model=='4S' || mob_model=='5' || mob_model=='5S' || mob_model=='11PRO'){
       alert("Tech Reviews not available for "+ mob_model);
       return;
     }
-    document.getElementById("push_name").value = mob_model;
     document.getElementById("tech_form").submit();
+  }
+
+  let url = window.location.href;
+
+  if(url.includes("/review")){
+    document.getElementById("push_name").value = mob_model;
   }
 
 

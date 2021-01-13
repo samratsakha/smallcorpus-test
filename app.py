@@ -326,7 +326,8 @@ def tech_review():
 
         get_tech = scrap_tech_reviews(model_of_mob)
 
-        return render_template('tech_review.html',tech_reviews=get_tech)
+        return render_template('tech_review.html',tech_reviews=get_tech,
+        model_of_the_mob=model_of_mob)
 
     else:
 
