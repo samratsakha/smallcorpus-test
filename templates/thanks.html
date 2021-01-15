@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iPhone Resales Corner</title>
+  <script type="text/javascript">
+    window.history.forward();
+    function noBack()
+    {
+        window.history.forward();
+    }
+</script>
+</head>
+
+<body  onLoad="noBack();" onpageshow="if (event.persisted) noBack();">
+
+  <div class="main-content" id="apple_default">
+
+    <header class="header">
+      <h1 id="platform">iPhone Resales Corner</h1><br>
+    </header><br><br>
+
+    <div class="thanks">
+      <h2>Thanks for using iPhone Resales Corner</h2>
+      <h3 style="color: rgb(0, 217, 255);">You will be redirected to Home now</h3>
+      <h3>We will contact you soon through call</h3>
+      <h3>We value your given feedback</h3>
+      <h3>We will improve ourselves according to your feedback</h3>
+      <h3>As we are recieving numerous number of calls and messages</h3>
+      <h3>We are not able to commit with you properly</h3>
+      <h3>This is why, we have launched this Web Application for your Convenience</h3>
+      <h3>All models of iphones available at our store</h3>
+      <h3>The iphones undergoes multiple test and comes to our store</h3>
+      <h3>We hand you the best condition of preowned iphones</h3>
+    </div>
+    
+  </div>
+
+  <form action="{{ url_for('go_to_home')}}" method="post" id="myform">
+
+  </form>
+
+
+  <footer class="foot">
+    <h3>© iPhone Resales Corner 2021 All Rights Reserved</h3>
+    <h3 id="gmail">Contact - iphoneresalescorner@gmail.com</h3>
+  </footer>
+
+
+</body>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    overflow-y: scroll; 
+  }
+
+
+  body {
+    height: 100%;
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(0, 0, 0);
+    font-weight: bolder;
+    background-color: black;
+    text-align: center;
+  }
+
+  .main-content {
+    background: url("https://sfwallpaper.com/images/blank-wallpaper-13.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin-bottom: 0;
+  }
+
+  .foot {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    background-color: black;
+    color: rgb(152, 235, 29);
+  }
+
+  header {
+    color: rgb(152, 235, 29);
+    background-color: rgba(0, 0, 0, 0.5);
+    font-family: 'Cinzel', serif;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    position: sticky;
+    top: 0;
+  }
+
+
+  header h1 {
+    margin: 1%;
+  }
+
+  .thanks{
+    color: white;
+    margin-top: 5%;
+    padding-bottom: 10%;
+  }
+
+  
+
+
+  /*   FOR MOBILE USERS    */
+
+  @media only screen and (max-width:1100px) {
+    .thanks{
+      color: white;
+      margin-top: 5%;
+      padding-bottom: 18%;
+  }
+  }
+
+  @media only screen and (max-width:550px) {
+    #gmail{
+      font-size: medium;
+    }
+  }
+</style>
+
+<script type="text/javascript">
+
+function autosubmit(){
+  document.getElementById("myform").submit();
+}
+
+setTimeout(autosubmit,2000);
+  
+</script>
+
+
+
+
+</html>

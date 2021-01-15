@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone Resales Corner</title>
+</head>
+
+<body>
+
+    
+
+    <div class="main-content" id="apple_default">
+
+        <header class="header">
+            <h1 id="platform">iPhone Resales Corner</h1><br>
+        </header>
+
+
+        <form action="{{ url_for('get_resale_value')}}" method="post">
+
+            <br><h3 id="get_value" style="color: greenyellow;">Get your iPhone's resale value in 5 seconds</h3>
+
+            <div class="div_1">
+
+            <div class="model_div">
+            <h3 class="content_text">Model</h3><br>
+            <select name="model_mob_sell" id="model_but" class="get_val" required="required" onchange="change_variants()">
+                <option value="4">4</option>
+                <option value="4S">4S</option>
+                <option value="5">5</option>
+                <option value="5S">5S</option>
+                <option value="5C">5C</option>
+
+                <option value="SE">SE</option>
+                <option value="6">6</option>
+                <option value="6S">6S</option>
+                <option value="6PLUS">6PLUS</option>
+                <option value="6SPLUS">6SPLUS</option>
+
+                <option value="7">7</option>
+                <option value="7PLUS">7PLUS</option>
+                <option value="8">8</option>
+                <option value="8PLUS">8PLUS</option>
+                <option value="X">X</option>
+
+                <option value="XS">XS</option>
+                <option value="XSMAX">XSMAX</option>
+                <option value="XR">XR</option>
+                <option value="SE2020">SE2020</option>
+                <option value="11">11</option>
+                <option value="11PRO">11PRO</option>
+
+
+                <option value="11PROMAX">11PROMAX</option>
+                <option value="12">12</option>
+                <option value="12MINI">12MINI</option>
+                <option value="12PRO">12PRO</option>
+                <option value="12PROMAX">12PROMAX</option>
+
+            
+            </select>
+            </div>
+
+            <div class="variant_div">
+            <h3 class="content_text">Variant</h3><br>
+            <select name="variant_sell" id="variant_but" class="get_val_2" required="required" >
+                <option value="16">16 GB</option>
+                <option value="32">32 GB</option>
+            </select>
+            </div>
+
+            
+            </div>
+
+            <div class="div_2">
+
+            <div class="pd">
+            <h3 class="content_text">Physical Damage</h3><br>
+            <select name="physical_damage" id="pd_but" required="required">
+                <option value="NO">NO</option>
+                <option value="YES">YES</option>
+            </select><br>
+            </div>
+
+            <div class="sd">
+            <h3 class="content_text">Software Issues</h3><br>
+            <select name="software_issues" id="sd_but"  required="required">
+                <option value="NO">NO</option>
+                <option value="YES">YES</option>
+            </select><br>
+            </div>
+
+            <div class="hd">
+            <h3 class="content_text">Hardware Issues</h3><br>
+            <select name="hardware_issues"  id="hd_but" required="required">
+                <option value="NO">NO</option>
+                <option value="YES">YES</option>
+            </select><br>
+            </div>
+
+            </div>
+
+            <div class="div_3">
+
+            <div class="bt">
+            <h3 class="content_text">Battery Health</h3><br>
+            <select name="battery" id="bt_but"  required="required">
+                <option value="85">91-100</option>
+                <option value="80">80-90</option>
+                <option value="70">70-79</option>
+            </select><br>
+            </div>
+
+            <div class="kt">
+            <h3 class="content_text">Kit available or not</h3><br>
+            <select name="kit"  id="kt_but" required="required">
+                <option value="YES">YES</option>
+                <option value="NO">NO</option>
+            </select><br>
+            </div>
+
+            </div>
+
+            <div class="div_4">
+            <br><br><button id="sub" type="submit ">Calculate</button>
+            <br><br><br>
+            </div>
+
+
+
+        </form>
+
+
+
+        
+
+        <br><br>
+
+    </div>
+
+
+    <div class="note" id="apple_default_2">
+        <br><br><h3 style="color: greenyellow;">How to get exact resale value..?</h3><br><br>
+
+        <h4 class="content_text">Model</h4><br>
+        <h5>Select your Apple iPhone Model from the list</h5><br><br>
+
+        <h4 class="content_text">Variant</h4><br>
+        <h5>Select your Apple iPhone variant from the list</h5><br><br>
+
+        <h4 class="content_text">Physical Damage</h4><br>
+        <h5>Select Yes if your iPhone has any Physical Damages </h5><br>
+        <h5>Example: Screen damage/Touch Cracks</h5><br>
+        <h5>Negligible scratches/dents doesn't mention any damage</h5><br><br>
+  
+
+        <h4 class="content_text">Software Issues</h4><br>
+        <h5>Select Yes if your iPhone has any Software Issues </h5><br>
+        <h5>Example: Call Network problems/Phone not Starting</h5><br><br>
+
+
+        <h4 class="content_text">Hardware Damage</h4><br>
+        <h5>Select Yes if your iPhone has any Hardware Issues </h5><br>
+        <h5>Example: Touch ID/Face ID not working</h5><br><br>
+
+        <h4 class="content_text">Battery health</h4><br>
+        <h5>Select Battery Health of your iPhone</h5><br>
+        <h5>Settings -> Battery -> Battery Health</h5><br><br>
+
+
+        <h4 class="content_text">Kit Available or not</h4><br>
+        <h5>Select Yes if you are having your iPhone's Kit or else No</h5><br>
+        <h5>Kit includes -> iPhone's Box,Lightining Cable,Adapter,Earphones</h5><br><br>
+
+
+        <h4 class="content_text">Hit the Calculate Button</h4><br><br>
+
+
+    </div>
+
+
+    <footer class="foot">
+            <h3>© iPhone Resales Corner 2021 All Rights Reserved</h3>
+            <h4>Contact - iphoneresalescorner@gmail.com</h4>
+    </footer>
+
+
+</body>
+
+<style>
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+body{
+    height: 100%;
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
+    text-shadow: 2px 2px #000000;
+    font-weight: bolder;
+    background-color: black;
+    text-align: center;
+}
+
+.main-content{
+    background: url("https://www.pixel4k.com/wp-content/uploads/2018/03/Dark%20Metal%20Apple3724615454.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  margin-bottom: 0;
+}
+
+.note{
+    background: url("https://images6.alphacoders.com/366/366149.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    color: rgb(0, 238, 255);
+}
+
+.note h5{
+    font-size: larger;
+}
+
+.foot{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    background-color: black;
+    color: rgb(152, 235, 29);
+}
+
+
+#get_value{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+}
+
+
+header{
+    color: rgb(152, 235, 29);
+    background-color: rgba(0, 0, 0, 0.4);
+    font-family: 'Cinzel', serif;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    position: sticky;
+    top: 0;
+}
+
+
+header h1{
+    margin: 1%;
+}
+
+
+.div_1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+}
+
+.model_div{
+    margin: 2%;
+}
+
+.variant_div{
+    margin: 2%;
+}
+
+.div_2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+}
+
+.pd{
+    margin: 2%;
+}
+
+.sd{
+    margin: 2%;
+}
+
+.hd{
+    margin: 2%;
+}
+
+
+.div_3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+}
+
+.bt{
+    margin: 2%;
+}
+
+.kt{
+    margin: 2%;
+}
+
+.div_4{
+    display: flex;
+    margin: 2%;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+}
+
+.div_5{
+    display: flex;
+    margin: 2%;
+    color: greenyellow;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    font-size: x-large;
+}
+
+
+
+#sub{
+    height: 50px;
+    width: 100px;
+    font-weight: bolder;
+    font-size: larger;
+    border: solid 4px rgb(0, 0, 0);
+    border-radius: 30px;
+    background-color: rgb(255, 255, 255);
+}
+
+#sub:hover{
+    cursor: pointer;
+    border: solid 3px rgb(255, 255, 255);
+    font-size: medium;
+    background-color: rgb(72, 255, 0);
+    border-radius: 50px;
+    font-weight: bolder;
+}
+
+#model_but{
+    font-weight: bolder;
+    height: 40px;
+    width: 100px;
+    border: solid 3px rgb(42, 6, 173);
+    border-radius: 30px;
+    background-color: rgb(218, 198, 24);
+}
+
+#model_but:hover{
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border: solid 3px rgb(55, 0, 255);
+    border-radius: 30px;
+    background-color: rgb(255, 230, 0);
+}
+
+#variant_but{
+    font-weight: bolder;
+    height: 40px;
+    width: 100px;
+    border: solid 3px rgb(42, 6, 173);
+    border-radius: 30px;
+    background-color: rgb(218, 198, 24);
+}
+
+#variant_but:hover{
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border: solid 3px rgb(55, 0, 255);
+    border-radius: 30px;
+    background-color: rgb(255, 230, 0);
+}
+
+#pd_but{
+    font-weight: bolder;
+    height: 40px;
+    width: 100px;
+    border: solid 3px rgb(42, 6, 173);
+    border-radius: 30px;
+    background-color: rgb(218, 198, 24);
+}
+
+#pd_but:hover{
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border: solid 3px rgb(55, 0, 255);
+    border-radius: 30px;
+    background-color: rgb(255, 230, 0);
+}
+
+#sd_but{
+    font-weight: bolder;
+    height: 40px;
+    width: 100px;
+    border: solid 3px rgb(42, 6, 173);
+    border-radius: 30px;
+    background-color: rgb(218, 198, 24);
+}
+
+#sd_but:hover{
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border: solid 3px rgb(55, 0, 255);
+    border-radius: 30px;
+    background-color: rgb(255, 230, 0);
+}
+
+#hd_but{
+    font-weight: bolder;
+    height: 40px;
+    width: 100px;
+    border: solid 3px rgb(42, 6, 173);
+    border-radius: 30px;
+    background-color: rgb(218, 198, 24);
+}
+
+#hd_but:hover{
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border: solid 3px rgb(55, 0, 255);
+    border-radius: 30px;
+    background-color: rgb(255, 230, 0);
+}
+
+#bt_but{
+    font-weight: bolder;
+    height: 40px;
+    width: 100px;
+    border: solid 3px rgb(42, 6, 173);
+    border-radius: 30px;
+    background-color: rgb(218, 198, 24);
+}
+
+#bt_but:hover{
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border: solid 3px rgb(55, 0, 255);
+    border-radius: 30px;
+    background-color: rgb(255, 230, 0);
+}
+
+#kt_but{
+    font-weight: bolder;
+    height: 40px;
+    width: 100px;
+    border: solid 3px rgb(42, 6, 173);
+    border-radius: 30px;
+    background-color: rgb(218, 198, 24);
+}
+
+#kt_but:hover{
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    border: solid 3px rgb(55, 0, 255);
+    border-radius: 30px;
+    background-color: rgb(255, 230, 0);
+}
+
+.content_text{
+    color: white;
+}
+
+
+/*   FOR APPLE USERS    */
+
+
+#apple_1{
+    background: url("https://i.pinimg.com/originals/b9/9f/f2/b99ff2cad99afdd11dc49c9de7b86719.jpg") no-repeat center center; 
+}
+
+
+
+#apple_2{
+    background: url("https://wallpaperaccess.com/full/213640.jpg") no-repeat center center; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    color: rgb(26, 137, 145);
+}
+
+
+
+
+/*   FOR MOBILE USERS    */
+
+@media only screen and (max-width:400px){
+    .div_1{
+        flex-direction: column;
+    }
+    .div_2{
+        flex-direction: column;
+    }
+    .div_3{
+        flex-direction: column;
+    }
+}
+
+</style>
+
+
+
+<script type="text/javascript"> 
+
+
+    if(navigator.userAgent.match(/iPhone/i)){
+
+
+       document.getElementById("model_but").id="apple_model_but";
+       document.getElementById("variant_but").id="apple_variant_but";
+       document.getElementById("pd_but").id="apple_pd_but";
+       document.getElementById("sd_but").id="apple_sd_but";
+       document.getElementById("hd_but").id="apple_hd_but";
+       document.getElementById("bt_but").id="apple_bt_but";
+       document.getElementById("kt_but").id="apple_kt_but";
+
+
+       document.getElementById("apple_default").id="apple_1";
+       document.getElementById("apple_default_2").id="apple_2";
+
+    }
+
+    var mod="";
+
+    function change_variants(){
+
+        var s1=document.getElementsByClassName("get_val");
+        var s2=document.getElementsByClassName("get_val_2");
+
+        for(var i=s2[0].length-1;i>=0;i--){
+            s2[0].remove(s2[0].i);
+        }
+
+    
+        // iphone 4
+        if(s1[0].value=="4"){
+            var array=["16 | 16 GB","32 | 32GB"];
+        }
+
+        // iphone 4s 5 5s 5c
+        if(s1[0].value=="4S"  || s1[0].value=="5"  ||  s1[0].value=="5S"  ||  s1[0].value=="5C" ){
+            var array=[ "16 | 16 GB"  , "32 | 32 GB" , "64 | 64 GB" ];
+        }
+
+        // iphone se 6 6s 6plus 6splus
+        if(s1[0].value=="SE"  || s1[0].value=="6"  ||  s1[0].value=="6S"  ||  s1[0].value=="6PLUS"  || s1[0].value=="6SPLUS" ){
+            var array=[ "16 | 16 GB"  , "32 | 32 GB" , "64 | 64 GB" , "128 | 128 GB" ];
+        }
+
+        // iphone 7 and 7plus
+        if(s1[0].value=="7"  || s1[0].value=="7PLUS" ){
+            var array=[ "32 | 32 GB"  , "128 | 128 GB" , "256 | 256 GB" ];
+        }
+
+        // iphone 8  8plus x
+        if(s1[0].value=="8"  || s1[0].value=="8PLUS" || s1[0].value=="X"){
+            var array=[ "64 | 64 GB"  , "256 | 256 GB"  ];
+        }
+
+        // iphone xs xsmax 11pro 11promax
+        if(s1[0].value=="XS"  || s1[0].value=="XSMAX" || s1[0].value=="11PRO" || s1[0].value=="11PROMAX" ){
+            var array=[ "64 | 64 GB"  , "256 | 256 GB" , "512 | 512 GB" ];
+        }
+
+        // iphone xr 11 12 12mini se2020
+        if(s1[0].value=="XR"  || s1[0].value=="11" || s1[0].value=="12" || s1[0].value=="12MINI" || s1[0].value=="SE2020" ){
+            var array=[ "64 | 64 GB"  , "128 | 128 GB" , "256 | 256 GB" ];
+        }
+
+        // iphone 12pro and 12promax
+        if(s1[0].value=="12PRO"  || s1[0].value=="12PROMAX" ){
+            var array=[ "64 | 128 GB"  , "128 | 256 GB" , "256 | 512 GB" ];
+        }
+
+        for(var option in array){
+            var pair = array[option].split("|");
+            var newOption = document.createElement("option");
+
+            newOption.value = pair[0];
+            newOption.innerHTML = pair[1];
+
+            s2[0].options.add(newOption);
+        }
+
+    }
+
+    setTimeout(change_variants,100);
+
+
+</script>
+
+
+
+
+</html>

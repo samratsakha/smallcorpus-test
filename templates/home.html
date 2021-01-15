@@ -40,9 +40,10 @@
 
        
 
-            <div class="variant_div">
-            <form>
+            <div class="variant_div" onclick="submit_sell()">
+            <form action="{{ url_for('gotosell')}}" method="post" id="sub_sell">
             <h3>I want to Sell <br> iPhone</h3><br>
+            <input style="visibility: hidden;" value="null">
             </form>
             </div>
 
@@ -240,6 +241,10 @@ header h1{
 
     function submit_buy(){
         document.getElementById("sub_buy").submit();
+    }
+
+    function submit_sell(){
+        document.getElementById("sub_sell").submit();
     }
 
 </script>

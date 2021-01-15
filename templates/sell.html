@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iPhone Resales Corner</title>
+</head>
+
+<body>
+
+  <div class="main-content" id="apple_default">
+
+    <header class="header">
+      <h1 id="platform">iPhone Resales Corner</h1><br>
+    </header>
+
+    <h2 id="resale_heading"></h2>
+
+    <h2 id="push_value" style="color: chartreuse;"></h2>
+
+    <button>Sell this iPhone</button>
+
+    <h3 id="rate_heading"></h3>
+
+    <div class="rating">
+      <span id="star1" class="fa fa-star"></span>
+      <span id="star2" class="fa fa-star"></span>
+      <span id="star3" class="fa fa-star"></span>
+      <span id="star4" class="fa fa-star"></span>
+      <span id="star5" class="fa fa-star"></span>
+     
+    </div>
+     
+    <h3 id="text_rate"></h3>
+    <div class="model_variant">
+      <div id="model"></div>
+      <div id="variant"></div>
+    </div>
+
+
+    <div class="push_content">
+      <div style="color: black; font-size: larger;">Conditions Choosed</div>
+      <div id="physical"></div>
+      <div id="software"></div>
+      <div id="hardware"></div>
+      <div id="battery"></div>
+      <div id="kit"></div>
+    </div>
+
+
+    <button>Sell this iPhone</button>
+
+   
+
+  </div>
+
+
+  <footer class="foot">
+    <h3>© iPhone Resales Corner 2021 All Rights Reserved</h3>
+    <h3 id="foot_gmail">Contact - iphoneresalescorner@gmail.com</h3>
+  </footer>
+
+
+</body>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+
+  body {
+    height: 100%;
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(0, 0, 0);
+    font-weight: bolder;
+    background-color: black;
+    text-align: center;
+  }
+
+  .main-content {
+    background: url("https://sfwallpaper.com/images/blank-wallpaper-13.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin-bottom: 0;
+  }
+
+  .foot {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    background-color: black;
+    color: rgb(152, 235, 29);
+  }
+
+  header {
+    color: rgb(152, 235, 29);
+    background-color: rgba(0, 0, 0, 0.5);
+    font-family: 'Cinzel', serif;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    position: sticky;
+    top: 0;
+  }
+
+
+  header h1 {
+    margin: 1%;
+  }
+
+  .push_content{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-size: larger;
+  }
+
+  .push_content div{
+    margin: 1%;
+  }
+
+  .checked {
+    color: rgb(255, 230, 0);
+  }
+
+  .checked:hover{
+    cursor: pointer;
+  }
+
+  .rating{
+    display: flex;
+    justify-content: center;
+    margin: 2%;
+    font-size: xx-large;
+  }
+
+  .rating span{
+    margin-right: 2%;
+  }
+
+  .model_variant{
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: larger;
+  }
+
+  .model_variant div{
+    margin: 1%;
+  }
+
+  button{
+    margin: 2%;
+  }
+
+
+  /*   FOR MOBILE USERS    */
+
+  @media only screen and (max-width:650px) {
+    #foot_gmail{
+      font-size: medium;
+    }
+    .push_content div{
+      margin: 3%;
+    }
+  }
+</style>
+
+<script type="text/javascript">
+
+  let predicted_value = '{{ prediction_text }}';
+  let physical_damage = '{{ physical_damage }}';
+  let software_damage = '{{ software_damage }}';
+  let hardware_damage = '{{ hardware_damage }}';
+  let battery_percent = '{{ battery_percent }}';
+  let kit_availability = '{{ kit_availability }}';
+  let model_name = '{{ mobile_model }}';
+  let variant_ = '{{ variant_ }}';
+
+  let battery_condition = "";
+  if(battery_percent==70){
+    battery_condition="Service";
+  }
+  else if(battery_percent==80){
+    battery_condition="Good";
+  }
+  if(battery_percent==85){
+    battery_condition="Excellent";
+  }
+
+  document.getElementById("model").innerHTML = "Model   : "+model_name;
+  document.getElementById("variant").innerHTML = "Variant  : "+variant_+"GB";
+  document.getElementById("physical").innerHTML = "Physical Damage   : "+physical_damage;
+  document.getElementById("software").innerHTML = "Software Issue    : "+software_damage;
+  document.getElementById("hardware").innerHTML = "Hardware Issue    : "+hardware_damage;
+  document.getElementById("battery").innerHTML =  "Battery Condition : "+battery_condition;
+  document.getElementById("kit").innerHTML =      "Kit Availability  : "+kit_availability;
+  document.getElementById("resale_heading").innerHTML = "Resale value of iphone "+model_name+" "+variant_+"GB";
+  document.getElementById("push_value").innerHTML = "₹ "+predicted_value;
+
+  let star=5;
+
+  if(physical_damage=="YES"){
+    star-=2;
+  }
+  if(software_damage=="YES"){
+    star-=2;
+  }
+  if(hardware_damage=="YES"){
+    star--;
+  }
+  if(kit_availability=="NO"){
+    star--;
+  }
+  if(battery_percent==70){
+    star--;
+  }
+  if(star<=0){
+    star=1;
+  }
+
+  for(var i=0;i<star;i++){
+    document.getElementById("star"+(i+1)).className = "fa fa-star checked";
+  }
+
+  document.getElementById("rate_heading").innerHTML = "Rating for your iphone "+model_name+" condition";
+  document.getElementById("text_rate").innerHTML = "Condition rating : "+star+"/5";
+
+
+</script>
+
+
+
+
+</html>

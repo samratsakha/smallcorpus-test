@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>iPhone Resales Corner</title>
 </head>
@@ -27,7 +28,12 @@
       <div id="excellent_price"></div>
     </div>
 
-    <a><button id="goto_olx_1"></button></a><br><br>
+    <form action="{{ url_for('buy_iphone')}}" method="post">
+      <select name="model_mob_name" style="display: none;">
+        <option id="to_database_1"></option>
+      </select>
+    <button id="goto_olx_1" type="submit"></button><br><br>
+    </form>
 
     <h2 id="user_reviews_heading">User Reviews</h2>
 
@@ -44,6 +50,15 @@
           <canvas id="mychart_2"></canvas>
         </div>
 
+      </div>
+
+      <div class="rating">
+        <span style="color: white;">User Rating :</span>
+        <span id="star1" class="fa fa-star"></span>
+        <span id="star2" class="fa fa-star"></span>
+        <span id="star3" class="fa fa-star"></span>
+        <span id="star4" class="fa fa-star"></span>
+        <span id="star5" class="fa fa-star"></span>
       </div>
 
 
@@ -72,7 +87,12 @@
       </select>
     </form>
 
-    <a><button id="goto_olx_2"></button></a><br>
+    <form action="{{ url_for('buy_iphone')}}" method="post">
+      <select name="model_mob_name" style="display: none;">
+        <option id="to_database_2"></option>
+      </select>
+      <button id="goto_olx_2" type="submit"></button><br>
+    </form>
     <br><button id="subtheform" onclick="sub_form()" >See Tech Reviews</button>
 
   </div>
@@ -229,6 +249,24 @@
     font-weight: bolder;
     color: white;
   }
+
+  .checked{
+    color: rgb(255, 251, 0);
+  }
+
+  .rating{
+    font-size: x-large;
+    margin: 2%;
+  }
+
+  #goto_olx_1{
+    color: rgb(0, 89, 255);
+  }
+
+  #goto_olx_2{
+    color: rgb(0, 89, 255);
+  }
+  
   
 
 
@@ -261,6 +299,10 @@
    #foot_gmail{
      font-size: medium;
    }
+   .rating{
+    font-size: large;
+    margin: 2%;
+  }
   }
 </style>
 
@@ -338,7 +380,7 @@
   let ratingchart = new Chart(mychart_2, {
     type: 'horizontalBar',
     data: {
-      labels: ['5 Rating', '4 Rating', '3 Rating', '2 Rating', '1 Rating'],
+      labels: ['5★ Rating', '4★ Rating', '3★ Rating', '2★ Rating', '1★ Rating'],
       datasets: [{
         label: 'Number of Ratings',
         data: [
@@ -412,9 +454,9 @@
   document.getElementById("rate_1").innerHTML = "1 Star Ratings: "+ one ;
 
   document.getElementById("get_predicted_price").innerHTML = "Price of iphone "+mob_model;
-  document.getElementById("average_price").innerHTML = "Average Condition: "+average;
-  document.getElementById("good_price").innerHTML = "Good Condition: "+ price;
-  document.getElementById("excellent_price").innerHTML = "Excellent Condition: "+ excellent;
+  document.getElementById("average_price").innerHTML = "Average Condition: ₹ "+average;
+  document.getElementById("good_price").innerHTML = "Good Condition: ₹ "+ price;
+  document.getElementById("excellent_price").innerHTML = "Excellent Condition: ₹ "+ excellent;
   document.getElementById("goto_olx_1").innerHTML = "Buy this iPhone "+mob_model;
   document.getElementById("goto_olx_2").innerHTML = "Buy this iPhone "+mob_model;
 
@@ -427,10 +469,20 @@
     document.getElementById("tech_form").submit();
   }
 
+  var star=Math.round((pos/total)*5);
+
+  for(var i=0;i<star;i++){
+    document.getElementById("star"+(i+1)).className = "fa fa-star checked";
+  }
+
+  
+
   let url = window.location.href;
 
   if(url.includes("/review")){
     document.getElementById("push_name").value = mob_model;
+    document.getElementById("to_database_1").value = mob_model;
+    document.getElementById("to_database_2").value = mob_model;     
   }
 
 

@@ -1,6 +1,8 @@
 # import libraries
 import flask
 from flask import Flask, render_template, request ,url_for
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 import jsonify
 import requests
 import bs4
@@ -114,9 +116,25 @@ def scrap_tech_reviews(mob_name):
             break
     
     return string 
+
+
+def calculate_price(text):
+    price = 0
+    if (text<=10000):
+        price = (text*70)//100
+    elif (text>10000 and text<=20000):
+        price = (text*80)//100
+    elif (text>20000 and text<=35000):
+        price = (text*85)//100
+    elif (text>35000 and text<=50000):
+        price = (text*88)//100
+    elif (text>50000 and text<=80000):
+        price = (text*90)//100
+    elif (text>80000):
+        price = (text*93)//100
+
+    return price
   
-
-
 
 
 # sentiment analysis function 
@@ -167,6 +185,7 @@ def decision_maker(final_review , rate_review):
         output="Negative"
 
     return output,final_rate
+
 
 
 
@@ -240,6 +259,9 @@ def price_predicter(mob_model,vart,pd,sd,hd,bt,kt):
 def Home():
     return render_template('home.html')
 
+
+
+#############################################     Buying Section     ###############################################
 
 # home to buy 
 @app.route("/buy", methods=['POST'])
@@ -334,7 +356,138 @@ def tech_review():
         return render_template('tech_review.html')
 
 
+# check availability of iphone from database
+@app.route("/buy_iphone", methods=['POST'])
+def buy_iphone():
+    if request.method == 'POST':
+        scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
+        credentials = ServiceAccountCredentials.from_json_keyfile_name('credentials_iphone_available_list.json',scope)
+
+        client = gspread.authorize(credentials)
+        sheet = client.open("available_iphones_list").sheet1
+
+        models = [item for item in sheet.col_values(1) if item]
+        variants = [item for item in sheet.col_values(2) if item]
+        colors = [item for item in sheet.col_values(3) if item]
+        condition = [item for item in sheet.col_values(4) if item]
+        idnum = [item for item in sheet.col_values(5) if item]
+
+        model_of_mob = request.form['model_mob_name']
+        model_of_mob = model_of_mob.replace(" ","")
+
+        avail = 0
+        string = ""
+        pass_id = ""
+        for i in range(len(models)):
+            if(models[i]==model_of_mob):
+                string += (models[i]+" "+variants[i]+"GB "+colors[i]+" "+condition[i]+"|")
+                pass_id += idnum[i]+"|"
+                avail += 1
+
+        return render_template('availability.html',availability=avail,get_string=string,get_id=pass_id,get_model=model_of_mob)
+
+    else:
+
+        return render_template('availability.html')
+
+
+
+#store the choosed iphone to buy to database 
+@app.route("/thanks", methods=['POST'])
+def store_buyer_iphone():
+    if request.method == 'POST':
+        scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
+        credentials = ServiceAccountCredentials.from_json_keyfile_name('credentials_iphone_available_list.json',scope)
+
+        client = gspread.authorize(credentials)
+        sheet = client.open("available_iphones_list").get_worksheet(1)
+        rows = [item for item in sheet.col_values(1) if item]
+
+        model_selected = request.form['selected_iphone']
+        mob_num = request.form['mob_num']
+        feedback = request.form['feedback']
+
+        sentiment_review,sentiment_rate=new_review(str(feedback))
+        get_output,get_rate=decision_maker(sentiment_review,sentiment_rate)
         
+        len_row = len(rows)+1
+
+        sheet.update_cell(len_row,1,model_selected)
+        sheet.update_cell(len_row,2,mob_num)
+        sheet.update_cell(len_row,3,get_rate)
+        sheet.update_cell(len_row,4,get_output)
+        sheet.update_cell(len_row,5,feedback)
+
+        return render_template("thanks.html")
+
+    else:
+
+        return render_template("thanks.html")
+
+
+#redirect to home page after thanks page
+@app.route("/home", methods=['POST'])
+def go_to_home():
+    if request.method == 'POST':
+
+        return render_template("home.html")
+
+    else:
+
+        return render_template("home.html")
+
+
+
+
+
+
+
+#############################################     Selling Section     ###############################################
+
+
+
+# home to sell
+
+@app.route("/sell", methods=['POST'])
+def gotosell():
+    return render_template('index2.html') 
+
+
+
+# calculate resale value 
+@app.route("/resale_value", methods=['POST'])
+def get_resale_value():
+    if request.method == 'POST':
+        model_mob_sell=request.form['model_mob_sell']
+        variant_sell=int(request.form['variant_sell'])
+        pd=request.form['physical_damage']
+        sd=request.form['software_issues']
+        hd=request.form['hardware_issues']
+        battery=int(request.form['battery'])
+        kit=request.form['kit']
+
+        resales_value = price_predicter(model_mob_sell,variant_sell,pd,sd,hd,battery,kit)
+
+        resales_value = round(resales_value[0],0)
+        resales_value = resales_value.astype(int)
+
+        resales_value = calculate_price(resales_value)
+
+        return render_template('sell.html',prediction_text=resales_value,
+        physical_damage = pd,
+        software_damage = sd,
+        hardware_damage = hd,
+        battery_percent = battery,
+        kit_availability = kit,
+        mobile_model=model_mob_sell,
+        variant_=variant_sell)
+
+    else:
+
+        return render_template('sell.html')
+
+
+
 
 
 

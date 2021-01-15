@@ -6,7 +6,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>iPhone Resales Corner</title>
 </head>
@@ -19,12 +19,73 @@
       <h1 id="platform">iPhone Resales Corner</h1><br>
     </header><br><br>
 
-    <div class="content">
+    <h2 id="push_name" style="color: white;"></h2>
 
-      <div class="container">
-        <canvas id="myChart"></canvas> 
+    <div class="rating_content">
+
+      <div class="rating_design">
+        <span class="rate_name" style="color: rgb(4, 248, 4);margin-left: 0.6%;">Design&emsp;&ensp;</span>
+        <span id="star1" class="fa fa-star"></span>
+        <span id="star2" class="fa fa-star"></span>
+        <span id="star3" class="fa fa-star"></span>
+        <span id="star4" class="fa fa-star"></span>
+        <span id="star5" class="fa fa-star"></span>
       </div>
 
+      <div class="rating_display">
+        <span class="rate_name" style="color:rgb(0, 238, 255);">Display&emsp;&ensp;</span>
+        <span id="star11" class="fa fa-star"></span>
+        <span id="star12" class="fa fa-star"></span>
+        <span id="star13" class="fa fa-star"></span>
+        <span id="star14" class="fa fa-star"></span>
+        <span id="star15" class="fa fa-star"></span>
+      </div>
+
+      <div class="rating_software">
+        <span class="rate_name" style="color: yellow;margin-left: 0.1%;">Software&emsp;&ensp;</span>
+        <span id="star21" class="fa fa-star"></span>
+        <span id="star22" class="fa fa-star"></span>
+        <span id="star23" class="fa fa-star"></span>
+        <span id="star24" class="fa fa-star"></span>
+        <span id="star25" class="fa fa-star"></span>
+      </div>
+
+      <div class="rating_perform">
+        <span class="rate_name" style="color: orange; margin-left: 0%;">Performance</span>
+        <span id="star31" class="fa fa-star"></span>
+        <span id="star32" class="fa fa-star"></span>
+        <span id="star33" class="fa fa-star"></span>
+        <span id="star34" class="fa fa-star"></span>
+        <span id="star35" class="fa fa-star"></span>
+      </div>
+
+      <div class="rating_battery">
+        <span class="rate_name" style="color: pink;">Battery&emsp;&emsp;</span>
+        <span id="star41" class="fa fa-star"></span>
+        <span id="star42" class="fa fa-star"></span>
+        <span id="star43" class="fa fa-star"></span>
+        <span id="star44" class="fa fa-star"></span>
+        <span id="star45" class="fa fa-star"></span>
+      </div>
+
+      <div class="rating_camera">
+        <span class="rate_name" style="color: rgb(0, 153, 255);">Camera&emsp;&emsp;</span>
+        <span id="star51" class="fa fa-star"></span>
+        <span id="star52" class="fa fa-star"></span>
+        <span id="star53" class="fa fa-star"></span>
+        <span id="star54" class="fa fa-star"></span>
+        <span id="star55" class="fa fa-star"></span>
+      </div>
+
+      <div class="rating_overall">
+        <span class="rate_name" style="color: white;">Overall&emsp;&emsp;</span>
+        <span id="star61" class="fa fa-star"></span>
+        <span id="star62" class="fa fa-star"></span>
+        <span id="star63" class="fa fa-star"></span>
+        <span id="star64" class="fa fa-star"></span>
+        <span id="star65" class="fa fa-star"></span>
+      </div>
+  
     </div>
 
     <div class="text_tech_review">
@@ -41,7 +102,12 @@
       <div id="over" style="color: white;"></div>
     </div>
 
-    <a ><button id="goto_olx"></button></a><br><br>
+    <form action="{{ url_for('buy_iphone')}}" method="post" >
+      <select name="model_mob_name" style="display: none;">
+        <option id="to_database_3"></option>
+      </select>
+      <button id="goto_olx" type="submit"></button><br><br>
+    </form>
 
     
   </div>
@@ -114,13 +180,8 @@
     margin: 1%;
   }
 
-  .container{
-    height: 60%;
-    width: 60%;
-  }
-
   .text_tech_review{
-    margin-top: 3%;
+    margin-top: 1%;
     color: white;
     font-size: large;
   }
@@ -155,6 +216,34 @@
     margin: 3%;
   }
 
+  .checked {
+    color: rgb(243, 239, 11);
+  }
+
+  .rating_content{
+    font-size: xx-large;
+  }
+
+  .rating_content span{
+    margin: 0.5%;
+    margin-bottom: 1%;
+  }
+
+  .checked:hover{
+    color: rgb(238, 255, 0);
+    cursor: pointer;
+  }
+
+  .rate_name{
+    color: white;
+    font-size: medium;
+    margin-right: 1%;
+  }
+
+  #goto_olx{
+    color: rgb(0, 4, 255);
+  }
+
 
   /*   FOR MOBILE USERS    */
 
@@ -172,18 +261,15 @@
     #gmail{
       font-size: medium;
     }
+    .rating_content{
+      font-size: x-large;
+    }
     
 
   }
 </style>
 
 <script type="text/javascript">
-
-  let mychart = document.getElementById('myChart').getContext('2d');
-
-  
-
-  Chart.defaults.global.defaultFontColor = 'white';
 
   let tech_review = '{{ tech_reviews }}';
   let mob_model = '{{ model_of_the_mob }}';
@@ -192,81 +278,75 @@
 
   for(var i=0;i<tech_review.length;i++){
     switch(tech_review[i]){
+      case '5':
+        arr.push(0);
+        break;
       case '6':
-        arr.push(6);
+        arr.push(1);
         break;
       case '7':
-        arr.push(7);
+        arr.push(2);
         break;
       case '8':
-        arr.push(8);
+        arr.push(3);
         break;
       case '9':
-        arr.push(9);
+        arr.push(4);
         break;
       case '1':
-        arr.push(10);
+        arr.push(5);
         break;
       default:
         break;
     }
   }
 
+  document.getElementById("push_name").innerHTML = "Tech - Rating of iPhone "+mob_model;
 
-  let ratingchart = new Chart(mychart, {
-    type: 'horizontalBar',
-    data: {
-      labels: ['Design', 'Display', 'Software', 'Performance', 'Battery' , 'Camera' , 'Overall'],
-      datasets: [{
-        label: 'Tech Reviews',
-        data: [
-          arr[1],
-          arr[2],
-          arr[3],
-          arr[4],
-          arr[5],
-          arr[6],
-          arr[0],
-          0,
-          10
-        ],
-        backgroundColor: [
-          'rgb(17, 223, 17)',
-          'rgb(0, 238, 255)',
-          'yellow',
-          'orange',
-          'pink',
-          'blue',
-          'white'
-        ]
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Tech - Rating of iPhone '+mob_model,
-        fontSize: 20
-      },
-      legend: {
-        display: false
-      },
-      labels:{
-        fontSize:20
-      }
-    }
-  });
+  for(var i=0;i<(arr[1]);i++){
+    document.getElementById("star"+(i+1)).className = "fa fa-star checked";
+  }
+
+  for(var i=0;i<(arr[2]);i++){
+    document.getElementById("star1"+(i+1)).className = "fa fa-star checked";
+  }
+
+  for(var i=0;i<(arr[3]);i++){
+    document.getElementById("star2"+(i+1)).className = "fa fa-star checked";
+  }
+
+  for(var i=0;i<(arr[4]);i++){
+    document.getElementById("star3"+(i+1)).className = "fa fa-star checked";
+  }
+
+  for(var i=0;i<(arr[5]);i++){
+    document.getElementById("star4"+(i+1)).className = "fa fa-star checked";
+  }
+
+  for(var i=0;i<(arr[6]);i++){
+    document.getElementById("star5"+(i+1)).className = "fa fa-star checked";
+  }
+
+  for(var i=0;i<(arr[0]);i++){
+    document.getElementById("star6"+(i+1)).className = "fa fa-star checked";
+  }
 
 
-
-  document.getElementById("des").innerHTML = "Design Rating : "+arr[1]+"/10";
-  document.getElementById("disp").innerHTML = "Display Rating : "+arr[2]+"/10";
-  document.getElementById("soft").innerHTML = "Software Rating : "+arr[3]+"/10";
-  document.getElementById("perform").innerHTML = "Performance Rating : "+arr[4]+"/10";
-  document.getElementById("bat").innerHTML = "Battery Rating : "+arr[5]+"/10";
-  document.getElementById("cam").innerHTML = "Camera Rating : "+arr[6]+"/10";
-  document.getElementById("over").innerHTML = "Overall Rating : "+arr[0]+"/10";
+  document.getElementById("des").innerHTML = "Design Rating : "+arr[1]+"/5";
+  document.getElementById("disp").innerHTML = "Display Rating : "+arr[2]+"/5";
+  document.getElementById("soft").innerHTML = "Software Rating : "+arr[3]+"/5";
+  document.getElementById("perform").innerHTML = "Performance Rating : "+arr[4]+"/5";
+  document.getElementById("bat").innerHTML = "Battery Rating : "+arr[5]+"/5";
+  document.getElementById("cam").innerHTML = "Camera Rating : "+arr[6]+"/5";
+  document.getElementById("over").innerHTML = "Overall Rating : "+arr[0]+"/5";
 
   document.getElementById("goto_olx").innerHTML = "Buy this iPhone "+mob_model;
+
+  let url = window.location.href;
+
+  if(url.includes("/tech_review")){
+    document.getElementById("to_database_3").value = mob_model;
+  }
 
 </script>
 
