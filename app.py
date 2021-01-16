@@ -118,6 +118,7 @@ def scrap_tech_reviews(mob_name):
     return string 
 
 
+# calculate resale value
 def calculate_price(text):
     price = 0
     if (text<=10000):
@@ -157,23 +158,25 @@ def new_review(new_review):
 # decision made on sentiment text
 def decision_maker(final_review , rate_review):
     rate_it = np.round( rate_review, decimals=2)
+    output=""
+    final_rate = np.round( rate_review , decimals=2 )
 
     if rate_it>4.3:
         final_rate = 5
     elif rate_it==3.72:
         final_rate = 3
-    elif rate_it>3.5 and rate_it<4.3:
+    elif rate_it>3.5 and rate_it<=4.3:
         final_rate = 4
-    elif rate_it>2.5 and rate_it<3.5:
+    elif rate_it>2.5 and rate_it<=3.5:
         final_rate = 3
-    elif rate_it>1.5 and rate_it<2.5:
+    elif rate_it>1.5 and rate_it<=2.5:
         final_rate = 2
-    elif rate_it<1.5:
+    elif rate_it<=1.5:
         final_rate = 1
 
     if final_review==0 or final_rate<3:
         output="Negative"
-        if final_rate>3:
+        if final_rate>=3:
             final_rate=2
     elif final_review == 1 and final_rate>3:
         output="Positive"
@@ -332,7 +335,8 @@ def review_this():
         classification_text_4=rt_2,
         classification_text_5=rt_1,
         prediction_price_mob=predicted_price,
-        mobile_model_name=model_mob)
+        mobile_model_name=model_mob,
+        mob_variant=variant)
         
     else:
 
@@ -344,12 +348,14 @@ def review_this():
 def tech_review():
     if request.method == 'POST':
         model_of_mob = request.form['model_mob_name']
+        variant_of_mob = request.form['model_mob_variant']
         model_of_mob = model_of_mob.replace(" ","")
+        variant_of_mob = variant_of_mob.replace(" ","")
 
         get_tech = scrap_tech_reviews(model_of_mob)
 
         return render_template('tech_review.html',tech_reviews=get_tech,
-        model_of_the_mob=model_of_mob)
+        model_of_the_mob=model_of_mob,variant_of_the_mob=variant_of_mob)
 
     else:
 
@@ -373,18 +379,21 @@ def buy_iphone():
         idnum = [item for item in sheet.col_values(5) if item]
 
         model_of_mob = request.form['model_mob_name']
+        variant_of_mob = request.form['model_mob_variant']
         model_of_mob = model_of_mob.replace(" ","")
+        variant_of_mob = variant_of_mob.replace(" ","")
 
         avail = 0
         string = ""
         pass_id = ""
         for i in range(len(models)):
-            if(models[i]==model_of_mob):
+            if(models[i]==model_of_mob and variants[i]==variant_of_mob):
                 string += (models[i]+" "+variants[i]+"GB "+colors[i]+" "+condition[i]+"|")
                 pass_id += idnum[i]+"|"
                 avail += 1
 
-        return render_template('availability.html',availability=avail,get_string=string,get_id=pass_id,get_model=model_of_mob)
+        return render_template('availability.html',availability=avail,get_string=string,
+        get_id=pass_id,get_model=model_of_mob,variant_of_the_mob=variant_of_mob)
 
     else:
 

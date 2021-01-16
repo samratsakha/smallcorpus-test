@@ -102,11 +102,11 @@
 
             <h2 id="choose_list" style="visibility: hidden;">Choose any iPhone from the below suggested list</h2>
             <form action="{{ url_for('review_this')}}" method="post">
-                <select name="model_mob" id="iPhone_selected" style="visibility: hidden;">
+                <select name="model_mob" id="iPhone_selected" style="visibility: hidden;" onchange="change_min_variants()">
                     <option></option>
                 </select>
-                <select name="variant" style="display: none;">
-                    <option value="16"></option>
+                <select name="variant" style="display: none;" id="push_variants">
+                    <option value="16" id="push_variant_value"></option>
                 </select>
 
                 <button id="choosed_iphone" style="visibility: hidden;">Get Price</button>
@@ -489,6 +489,7 @@
     function suggestme() {
         budget_price = document.getElementById("price_enter").value;
         get_selected = document.getElementById("iPhone_selected");
+        push_variant = document.getElementById("push_variants");
 
         if (budget_price == "") {
             alert("Enter your Budget");
@@ -514,70 +515,86 @@
         for (var i = get_selected.length - 1; i >= 0; i--) {
             get_selected.remove(get_selected.i);
         }
+        for (var i = push_variant.length - 1; i >= 0; i--) {
+            push_variant.remove(push_variant.i);
+        }
 
         // 2000 - 4200  
         if (budget_price <= 4200) {
             var suggest_list = ["4 | 4", "4S | 4S"];
+            var variant_list = ["16","16"];
         }
 
         // 4200 - 5600
         if (budget_price > 4200 && budget_price <= 5600) {
             var suggest_list = ["5 | 5", "5C | 5C", "5S | 5S"];
+            var variant_list = ["16","16","16"];
         }
 
         // 5600 - 7300
         if (budget_price > 5600 && budget_price <= 7300) {
             var suggest_list = ["5S | 5S", "6 | 6", "6PLUS | 6PLUS"];
+            var variant_list = ["16","16","16"];
         }
 
         // 7300 - 10900
         if (budget_price > 7300 && budget_price <= 10900) {
             var suggest_list = ["SE | SE", "6S | 6S", "6SPLUS | 6SPLUS"];
+            var variant_list = ["16","16","16"];
         }
 
         // 10900 - 14300
         if (budget_price > 10900 && budget_price <= 14300) {
             var suggest_list = ["7 | 7", "6SPLUS | 6SPLUS"];
+            var variant_list = ["32","16"];
         }
 
         // 14300 - 22300
         if (budget_price > 14300 && budget_price <= 22300) {
             var suggest_list = ["7PLUS | 7PLUS", "8 | 8"];
+            var variant_list = ["32","64"];
         }
 
         // 22300 - 29900
         if (budget_price > 22300 && budget_price <= 29900) {
             var suggest_list = ["8PLUS | 8PLUS" , "SE2020 | SE2020",];
+            var variant_list = ["64","64"];
         }
 
         // 29900 - 42100
         if (budget_price > 29900 && budget_price <= 42100) {
             var suggest_list = ["SE2020 | SE2020", "X | X", "XR | XR"];
+            var variant_list = ["64","64","64"];
         }
 
         // 42100 - 58400
         if (budget_price > 42100 && budget_price <= 58400) {
             var suggest_list = ["XS | XS", "XSMAX | XSMAX", "11 | 11"];
+            var variant_list = ["64","64","64"];
         }
 
         // 58400 - 63300
         if (budget_price > 58400 && budget_price <= 63300) {
             var suggest_list = ["11PRO | 11PRO", "12MINI | 12MINI"];
+            var variant_list = ["64","64"];
         }
 
         // 63300 - 85200
         if (budget_price > 63300 && budget_price <= 85200) {
             var suggest_list = ["11PROMAX | 11PROMAX", "12 | 12"];
+            var variant_list = ["64","64"];
         }
 
         // 85200 - 99400
         if (budget_price > 85200 && budget_price <= 99400) {
             var suggest_list = ["12PRO | 12PRO"];
+            var variant_list = ["128"];
         }
 
         // greater than 99400
         if (budget_price > 99400) {
             var suggest_list = ["12PRO | 12PRO", "12PROMAX | 12PROMAX"];
+            var variant_list = ["128","128"];
         }
 
         for (var option in suggest_list) {
@@ -590,11 +607,43 @@
             get_selected.options.add(newOption);
         }
 
+        for(var option in variant_list){
+            var newOption = document.createElement("option");
+            newOption.value = variant_list[option];
+            newOption.innerHTML = variant_list[option];
+            newOption.id = "push_variant_value" + option.toString();
+
+            push_variant.options.add(newOption);
+        }
         get_selected.style.visibility = "visible";
         document.getElementById("choose_list").style.visibility = "visible";
         document.getElementById("choosed_iphone").style.visibility = "visible";
 
 
+    }
+
+    // changes the variant to minimum when model is changed 
+    function change_min_variants(){
+        let get_model = document.getElementById("iPhone_selected").value;
+        get_model = get_model.trim();
+        if(get_model=="4" || get_model=="4S" || get_model=="5" || get_model=="5C" || get_model=="5S" || get_model=="SE"){
+            document.getElementById("push_variant_value0").value="16";
+        }
+        else if(get_model=="6" || get_model=="6S" || get_model=="6PLUS" || get_model=="6SPLUS"){
+            document.getElementById("push_variant_value0").value="16";
+        }
+        else if(get_model=="7" || get_model=="7PLUS"){
+            document.getElementById("push_variant_value0").value="32";
+        }
+        else if(get_model=="8" || get_model=="8PLUS" || get_model=="X" || get_model=="XR" || get_model=="XS" || get_model=="XSMAX"){
+            document.getElementById("push_variant_value0").value="64";
+        }
+        else if(get_model=="SE2020" || get_model=="11" || get_model=="11PRO" || get_model=="11PROMAX" || get_model=="12MINI" || get_model=="12"){
+            document.getElementById("push_variant_value0").value="64";
+        }
+        else if(get_model=="12PRO" || get_model=="12PROMAX"){
+            document.getElementById("push_variant_value0").value="128";
+        }
     }
 
     // to solve bug - when window-back, variants not loading

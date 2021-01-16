@@ -24,7 +24,7 @@
     <div class="rating_content">
 
       <div class="rating_design">
-        <span class="rate_name" style="color: rgb(4, 248, 4);margin-left: 0.6%;">Design&emsp;&ensp;</span>
+        <span class="rate_name" style="color: rgb(4, 248, 4);margin-left: 0.6%;">Design&ensp;&emsp;&ensp;</span>
         <span id="star1" class="fa fa-star"></span>
         <span id="star2" class="fa fa-star"></span>
         <span id="star3" class="fa fa-star"></span>
@@ -33,7 +33,7 @@
       </div>
 
       <div class="rating_display">
-        <span class="rate_name" style="color:rgb(0, 238, 255);">Display&emsp;&ensp;</span>
+        <span class="rate_name" style="color:rgb(0, 238, 255);">Display&ensp;&emsp;&ensp;</span>
         <span id="star11" class="fa fa-star"></span>
         <span id="star12" class="fa fa-star"></span>
         <span id="star13" class="fa fa-star"></span>
@@ -42,7 +42,7 @@
       </div>
 
       <div class="rating_software">
-        <span class="rate_name" style="color: yellow;margin-left: 0.1%;">Software&emsp;&ensp;</span>
+        <span class="rate_name" style="color: yellow;margin-left: 0.1%;">Software&emsp;&ensp;&nbsp;</span>
         <span id="star21" class="fa fa-star"></span>
         <span id="star22" class="fa fa-star"></span>
         <span id="star23" class="fa fa-star"></span>
@@ -105,6 +105,9 @@
     <form action="{{ url_for('buy_iphone')}}" method="post" >
       <select name="model_mob_name" style="display: none;">
         <option id="to_database_3"></option>
+      </select>
+      <select name="model_mob_variant" style="display: none;">
+        <option id="to_database_3_var"></option>
       </select>
       <button id="goto_olx" type="submit"></button><br><br>
     </form>
@@ -225,7 +228,7 @@
   }
 
   .rating_content span{
-    margin: 0.5%;
+    margin: 0.3%;
     margin-bottom: 1%;
   }
 
@@ -273,6 +276,7 @@
 
   let tech_review = '{{ tech_reviews }}';
   let mob_model = '{{ model_of_the_mob }}';
+  let mob_variant = '{{ variant_of_the_mob }}';
 
   var arr = new Array();
 
@@ -346,6 +350,7 @@
 
   if(url.includes("/tech_review")){
     document.getElementById("to_database_3").value = mob_model;
+    document.getElementById("to_database_3_var").value = mob_variant;
   }
 
 </script>

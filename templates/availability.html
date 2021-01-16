@@ -178,6 +178,7 @@
   let pass_string = '{{ get_string }}';
   let idnum = '{{ get_id }}';
   let model_mob = '{{ get_model }}';
+  let mob_variant = '{{ variant_of_the_mob }}';
 
   var present_model = new Array();
   var idarray = new Array();
@@ -200,8 +201,8 @@
     document.getElementById("not_available").style.display="block";
   }
 
-  document.getElementById("head_models").innerHTML = "The below iphone "+model_mob+" are currently available";
-  document.getElementById("no_model").innerHTML = "There are NO iphone "+model_mob+" currently available";
+  document.getElementById("head_models").innerHTML = "The below iphone "+model_mob+" "+mob_variant+"GB are currently available";
+  document.getElementById("no_model").innerHTML = "There are NO iphone "+model_mob+" "+mob_variant+"GB currently available";
 
   function submit_form(){
     let int1 = document.getElementById("phn").value;

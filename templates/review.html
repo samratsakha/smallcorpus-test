@@ -32,6 +32,9 @@
       <select name="model_mob_name" style="display: none;">
         <option id="to_database_1"></option>
       </select>
+      <select name="model_mob_variant" style="display: none;">
+        <option id="to_database_1_var"></option>
+      </select>
     <button id="goto_olx_1" type="submit"></button><br><br>
     </form>
 
@@ -85,11 +88,17 @@
       <select name="model_mob_name" style="display: none;" >
         <option id="push_name"></option>
       </select>
+      <select name="model_mob_variant" style="display: none;" >
+        <option id="push_name_variant"></option>
+      </select>
     </form>
 
     <form action="{{ url_for('buy_iphone')}}" method="post">
       <select name="model_mob_name" style="display: none;">
         <option id="to_database_2"></option>
+      </select>
+      <select name="model_mob_variant" style="display: none;">
+        <option id="to_database_2_var"></option>
       </select>
       <button id="goto_olx_2" type="submit"></button><br>
     </form>
@@ -324,6 +333,7 @@
 
   let price = '{{ prediction_price_mob }}';
   let mob_model = '{{ mobile_model_name }}';
+  let mob_variant = '{{ mob_variant }}';
 
   let tech_string;
   
@@ -453,7 +463,7 @@
   document.getElementById("rate_2").innerHTML = "2 Star Ratings: "+ two ;
   document.getElementById("rate_1").innerHTML = "1 Star Ratings: "+ one ;
 
-  document.getElementById("get_predicted_price").innerHTML = "Price of iphone "+mob_model;
+  document.getElementById("get_predicted_price").innerHTML = "Price of iphone "+mob_model+" "+mob_variant+"GB";
   document.getElementById("average_price").innerHTML = "Average Condition: ₹ "+average;
   document.getElementById("good_price").innerHTML = "Good Condition: ₹ "+ price;
   document.getElementById("excellent_price").innerHTML = "Excellent Condition: ₹ "+ excellent;
@@ -481,8 +491,11 @@
 
   if(url.includes("/review")){
     document.getElementById("push_name").value = mob_model;
+    document.getElementById("push_name_variant").value = mob_variant;
     document.getElementById("to_database_1").value = mob_model;
+    document.getElementById("to_database_1_var").value = mob_variant;
     document.getElementById("to_database_2").value = mob_model;     
+    document.getElementById("to_database_2_var").value = mob_variant;
   }
 
 
