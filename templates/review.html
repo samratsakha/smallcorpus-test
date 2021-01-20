@@ -35,7 +35,7 @@
       <select name="model_mob_variant" style="display: none;">
         <option id="to_database_1_var"></option>
       </select>
-    <button id="goto_olx_1" type="submit"></button><br><br>
+      <button id="goto_olx_1" type="submit"></button><br><br>
     </form>
 
     <h2 id="user_reviews_heading">User Reviews</h2>
@@ -69,26 +69,26 @@
 
 
       <div class="review_list">
-          <div style="color: rgb(17, 223, 17);" id="get_pos"></div>
-          <div style="color: yellow;" id="get_neut"></div>
-          <div style="color: red;" id="get_neg"></div>
+        <div style="color: rgb(17, 223, 17);" id="get_pos"></div>
+        <div style="color: yellow;" id="get_neut"></div>
+        <div style="color: red;" id="get_neg"></div>
       </div>
 
       <div class="rate_list">
-        <div  style="color: rgb(0, 255, 0);" id="rate_5"></div>
-        <div  style="color: rgb(0, 238, 255);" id="rate_4"></div>
-        <div  style="color: rgb(238, 255, 0);" id="rate_3"></div>
-        <div  style="color: rgb(255, 166, 0);" id="rate_2"></div>
-        <div  style="color: rgb(255, 0, 0);" id="rate_1"></div>        
+        <div style="color: rgb(0, 255, 0);" id="rate_5"></div>
+        <div style="color: rgb(0, 238, 255);" id="rate_4"></div>
+        <div style="color: rgb(238, 255, 0);" id="rate_3"></div>
+        <div style="color: rgb(255, 166, 0);" id="rate_2"></div>
+        <div style="color: rgb(255, 0, 0);" id="rate_1"></div>
       </div>
 
     </div>
 
     <form action="{{ url_for('tech_review')}}" method="post" id="tech_form">
-      <select name="model_mob_name" style="display: none;" >
+      <select name="model_mob_name" style="display: none;">
         <option id="push_name"></option>
       </select>
-      <select name="model_mob_variant" style="display: none;" >
+      <select name="model_mob_variant" style="display: none;">
         <option id="push_name_variant"></option>
       </select>
     </form>
@@ -102,7 +102,7 @@
       </select>
       <button id="goto_olx_2" type="submit"></button><br>
     </form>
-    <br><button id="subtheform" onclick="sub_form()" >See Tech Reviews</button>
+    <br><button id="subtheform" onclick="sub_form()">See Tech Reviews</button>
 
   </div>
 
@@ -169,6 +169,7 @@
   header h1 {
     margin: 1%;
   }
+
   .content {
     display: flex;
     justify-content: center;
@@ -177,7 +178,7 @@
     justify-items: center;
   }
 
-  .content_2{
+  .content_2 {
     color: white;
   }
 
@@ -194,7 +195,7 @@
     margin: 5%;
   }
 
-  .review_list{
+  .review_list {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -204,15 +205,15 @@
     font-size: large;
   }
 
-  .review_list div{
+  .review_list div {
     margin: 2%;
   }
 
-  #get_total{
+  #get_total {
     font-size: x-large;
   }
 
-  .rate_list{
+  .rate_list {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -222,11 +223,11 @@
     font-size: large;
   }
 
-  .rate_list div{
+  .rate_list div {
     margin: 1%;
   }
 
-  .all_prices{
+  .all_prices {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -236,11 +237,11 @@
     font-size: large;
   }
 
-  .all_prices div{
+  .all_prices div {
     margin: 1%;
   }
 
-  #subtheform{
+  #subtheform {
     margin-bottom: 5%;
     height: 50px;
     width: 100px;
@@ -248,70 +249,77 @@
     border: solid 3px black;
   }
 
-  #subtheform:hover{
+  #subtheform:hover {
     background-color: green;
     border: solid 4px black;
   }
 
-  #user_reviews_heading{
+  #user_reviews_heading {
     font-size: x-large;
     font-weight: bolder;
     color: white;
   }
 
-  .checked{
+  .checked {
     color: rgb(255, 251, 0);
   }
 
-  .rating{
+  .rating {
     font-size: x-large;
     margin: 2%;
   }
 
-  #goto_olx_1{
+  #goto_olx_1 {
     color: rgb(0, 89, 255);
   }
 
-  #goto_olx_2{
+  #goto_olx_2 {
     color: rgb(0, 89, 255);
   }
-  
-  
+
+
 
 
 
   /*   FOR MOBILE USERS    */
 
   @media only screen and (max-width:650px) {
-    .all_prices{
+    .all_prices {
       flex-direction: column;
     }
-    .rate_list{
+
+    .rate_list {
       flex-direction: column;
     }
-    .content{
+
+    .content {
       flex-direction: column;
     }
-    .review_list{
+
+    .review_list {
       flex-direction: column;
     }
+
     .container {
-    height: 90%;
-    width: 90%;
-    margin: 5%;
-   }
-   .container_2 {
-     height: 90%;
-     width: 90%;
-     margin: 5%;
-   }
-   #foot_gmail{
-     font-size: medium;
-   }
-   .rating{
-    font-size: large;
-    margin: 2%;
-  }
+      height: 90%;
+      width: 90%;
+      margin: 5%;
+    }
+
+    .container_2 {
+      height: 90%;
+      width: 90%;
+      margin: 5%;
+    }
+
+    #foot_gmail {
+      font-size: medium;
+    }
+
+    .rating {
+      font-size: large;
+      margin: 2%;
+    }
   }
 </style>
 
@@ -336,7 +344,7 @@
   let mob_variant = '{{ mob_variant }}';
 
   let tech_string;
-  
+
 
   price = Math.floor(price);
 
@@ -380,7 +388,7 @@
       legend: {
         display: true,
         labels: {
-           fontSize:15
+          fontSize: 15
         }
       }
     }
@@ -426,75 +434,86 @@
   let average = 0;
   let excellent = 0;
 
-  if(price>0 && price<=10000){
-    average = (price*85)/100;
-    excellent = (price*110)/100;
+  if (price > 0 && price <= 10000) {
+    average = (price * 85) / 100;
+    excellent = (price * 110) / 100;
   }
-  else if(price>10000 && price<=20000){
-    average = (price*92)/100;
-    excellent = (price*115)/100;
+  else if (price > 10000 && price <= 20000) {
+    average = (price * 92) / 100;
+    excellent = (price * 115) / 100;
   }
-  else if(price>20000 && price<=30000){
-    average = (price*90)/100;
-    excellent = (price*118)/100;
+  else if (price > 20000 && price <= 30000) {
+    average = (price * 90) / 100;
+    excellent = (price * 118) / 100;
   }
-  else if(price>30000 && price<=50000){
-    average = (price*95)/100;
-    excellent = (price*112)/100;
+  else if (price > 30000 && price <= 50000) {
+    average = (price * 95) / 100;
+    excellent = (price * 112) / 100;
   }
-  else if(price>50000 && price<=80000){
-    average = (price*96)/100;
-    excellent = (price*108)/100;
+  else if (price > 50000 && price <= 80000) {
+    average = (price * 96) / 100;
+    excellent = (price * 108) / 100;
   }
-  else if(price>80000){
-    average = (price*98)/100;
-    excellent = (price*102)/100;
+  else if (price > 80000) {
+    average = (price * 98) / 100;
+    excellent = (price * 102) / 100;
+  }
+  if (mob_model.trim() == "12PRO" || mob_model.trim() == "12PROMAX") {
+    if (mob_variant.trim() == "64") {
+      mob_variant = "128";
+    }
+    else if (mob_variant.trim() == "128") {
+      mob_variant = "256";
+    }
+    else if (mob_variant.trim() == "256") {
+      mob_variant = "512";
+    }
   }
 
 
-  document.getElementById("get_total").innerHTML = "Total number of reviews: "+total;
-  document.getElementById("get_pos").innerHTML = "Number of Positive reviews: "+pos;
-  document.getElementById("get_neut").innerHTML = "Number of Neutral reviews: "+neut;
-  document.getElementById("get_neg").innerHTML = "Number of Negative reviews: "+neg;
+  document.getElementById("get_total").innerHTML = "Total number of reviews: " + total;
+  document.getElementById("get_pos").innerHTML = "Number of Positive reviews: " + pos;
+  document.getElementById("get_neut").innerHTML = "Number of Neutral reviews: " + neut;
+  document.getElementById("get_neg").innerHTML = "Number of Negative reviews: " + neg;
 
-  document.getElementById("rate_5").innerHTML = "5 Star Ratings: "+ five ;
-  document.getElementById("rate_4").innerHTML = "4 Star Ratings: "+ four ;
-  document.getElementById("rate_3").innerHTML = "3 Star Ratings: "+ three ;
-  document.getElementById("rate_2").innerHTML = "2 Star Ratings: "+ two ;
-  document.getElementById("rate_1").innerHTML = "1 Star Ratings: "+ one ;
+  document.getElementById("rate_5").innerHTML = "5 Star Ratings: " + five;
+  document.getElementById("rate_4").innerHTML = "4 Star Ratings: " + four;
+  document.getElementById("rate_3").innerHTML = "3 Star Ratings: " + three;
+  document.getElementById("rate_2").innerHTML = "2 Star Ratings: " + two;
+  document.getElementById("rate_1").innerHTML = "1 Star Ratings: " + one;
 
-  document.getElementById("get_predicted_price").innerHTML = "Price of iphone "+mob_model+" "+mob_variant+"GB";
-  document.getElementById("average_price").innerHTML = "Average Condition: ₹ "+average;
-  document.getElementById("good_price").innerHTML = "Good Condition: ₹ "+ price;
-  document.getElementById("excellent_price").innerHTML = "Excellent Condition: ₹ "+ excellent;
-  document.getElementById("goto_olx_1").innerHTML = "Buy this iPhone "+mob_model;
-  document.getElementById("goto_olx_2").innerHTML = "Buy this iPhone "+mob_model;
+  document.getElementById("get_predicted_price").innerHTML = "Price of iphone " + mob_model + " " + mob_variant + "GB";
+  document.getElementById("average_price").innerHTML = "Average Condition: ₹ " + average;
+  document.getElementById("good_price").innerHTML = "Good Condition: ₹ " + price;
+  document.getElementById("excellent_price").innerHTML = "Excellent Condition: ₹ " + excellent;
+  document.getElementById("goto_olx_1").innerHTML = "Buy this iPhone " + mob_model;
+  document.getElementById("goto_olx_2").innerHTML = "Buy this iPhone " + mob_model;
 
-  
-  function sub_form(){
-    if(mob_model=='4' || mob_model=='4S' || mob_model=='5' || mob_model=='5S' || mob_model=='11PRO'){
-      alert("Tech Reviews not available for "+ mob_model);
+
+  function sub_form() {
+    if (mob_model == '4' || mob_model == '4S' || mob_model == '5' || mob_model == '5S' || mob_model == '11PRO') {
+      alert("Tech Reviews not available for " + mob_model);
       return;
     }
     document.getElementById("tech_form").submit();
   }
 
-  var star=Math.round((pos/total)*5);
+  var star = Math.round((pos / total) * 5);
 
-  for(var i=0;i<star;i++){
-    document.getElementById("star"+(i+1)).className = "fa fa-star checked";
+  for (var i = 0; i < star; i++) {
+    document.getElementById("star" + (i + 1)).className = "fa fa-star checked";
   }
 
-  
+
 
   let url = window.location.href;
 
-  if(url.includes("/review")){
+  if (url.includes("/review")) {
     document.getElementById("push_name").value = mob_model;
     document.getElementById("push_name_variant").value = mob_variant;
     document.getElementById("to_database_1").value = mob_model;
     document.getElementById("to_database_1_var").value = mob_variant;
-    document.getElementById("to_database_2").value = mob_model;     
+    document.getElementById("to_database_2").value = mob_model;
     document.getElementById("to_database_2_var").value = mob_variant;
   }
 

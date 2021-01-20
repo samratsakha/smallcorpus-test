@@ -497,6 +497,78 @@ def get_resale_value():
 
 
 
+# resale_value to sell_iphone
+@app.route("/sell_iphone", methods=['POST'])
+def sell_iphone():
+    if request.method == 'POST':
+        mob_details = request.form['pass_model_details']
+
+        return render_template('sell_iphone.html',mobile_details=mob_details)
+
+    else:
+
+        return render_template('sell.html')
+
+
+# store all selling details to databse
+@app.route("/sell_this_iphone", methods=['POST'])
+def sell_this_iphone():
+    if request.method == 'POST':
+        scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
+        credentials = ServiceAccountCredentials.from_json_keyfile_name('credentials_iphone_available_list.json',scope)
+
+        client = gspread.authorize(credentials)
+        sheet = client.open("available_iphones_list").get_worksheet(2)
+        rows = [item for item in sheet.col_values(1) if item]
+        len_row = len(rows)+1
+
+        pd_details = request.form['pd_details']
+        sd_details = request.form['sd_details']
+        hd_details = request.form['hd_details']
+        kit_details = request.form['kit_details']
+        age_details = request.form['age_details']
+        mob_details = request.form['mob_details']
+        descp_details = request.form['descp_details']
+        mob_num = request.form['mob_num']
+        feedback = request.form['feedback']
+
+        mob_details = mob_details.split("|")
+        model_variant = mob_details[1]+" "+mob_details[2]+"GB"
+        if(kit_details=="NO"):
+            kit_details="Available"
+
+        
+        sentiment_review_2,sentiment_rate_2=new_review(str(descp_details))
+        get_output_2,get_rate_2=decision_maker(sentiment_review_2,sentiment_rate_2)
+        descp_rate = str(get_output_2)+" "+str(get_rate_2)
+
+        sentiment_review,sentiment_rate=new_review(str(feedback))
+        get_output,get_rate=decision_maker(sentiment_review,sentiment_rate)
+        feed_rate = str(get_output)+" "+str(get_rate)
+
+        sheet.update_cell(len_row,1,model_variant)
+        sheet.update_cell(len_row,2,mob_details[8])
+        sheet.update_cell(len_row,3,mob_details[0])
+        sheet.update_cell(len_row,4,pd_details)
+        sheet.update_cell(len_row,5,sd_details)
+        sheet.update_cell(len_row,6,hd_details)
+        sheet.update_cell(len_row,7,kit_details)
+        sheet.update_cell(len_row,8,age_details)
+        sheet.update_cell(len_row,9,descp_details)
+        sheet.update_cell(len_row,10,descp_rate)
+        sheet.update_cell(len_row,11,feedback)
+        sheet.update_cell(len_row,12,feed_rate)
+        sheet.update_cell(len_row,13,mob_num)
+
+
+
+        return render_template('thanks.html')
+    
+    else:
+
+        return render_template('thanks.html')
+
+
 
 
 

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iPhone Resales Corner</title>
+</head>
+
+<body>
+
+  <div class="main-content" id="apple_default">
+
+    <header class="header">
+      <h1 id="platform">iPhone Resales Corner</h1><br>
+    </header>
+
+    <h2 id="push_heading"></h2>
+
+    <form action="{{ url_for('sell_this_iphone')}}" method="post" id="myform">
+
+    <div class="textarea_faults">
+      <h3 id="text_pd_head" style="display: none;">Tell about your Physical Damage</h3>
+      <textarea name="pd_details" cols="60" rows="2" id="text_pd" placeholder="Type here" style="display: none;"></textarea>
+      <h3 id="text_sd_head" style="display: none;">Tell about your Software Issue</h3>
+      <textarea name="sd_details" cols="60" rows="2" id="text_sd" placeholder="Type here" style="display: none;"></textarea>
+      <h3 id="text_hd_head" style="display: none;">Tell about your Hardware Issue</h3>
+      <textarea name="hd_details" cols="60" rows="2" id="text_hd" placeholder="Type here" style="display: none;"></textarea>
+    </div>
+
+    <div class="kit_check">
+      <h3>Which of the following you don't have in your kit?</h3>
+      <label><input type="checkbox" id="check_box">&ensp;Box of the iphone with same IMEI</label><br>
+      <label><input type="checkbox" id="check_charger">&ensp;&ensp;Original Charger of the iphone&emsp;</label><br>
+      <label><input type="checkbox" id="check_earphones">&ensp;&ensp;Original Earphones of the iphone</label><br>
+    </div>
+
+    <div class="misc_info">
+
+      <h3 id="age_heading">How old is your iphone?</h3>
+      <label><input type="radio" name="radio_old" id="1year">&emsp;Less than 1 year&ensp;</label><br>
+      <label><input type="radio" name="radio_old" id="3year">&emsp;Between 1-3 years</label><br>
+      <label><input type="radio" name="radio_old" id="5year">&emsp;More than 3 years</label><br>
+
+    </div>
+
+    <input style="display: none;" id="kit_id" name="kit_details">
+    <input style="display: none;" id="age_id" name="age_details">
+    <input style="display: none;" id="push_details" name="mob_details">
+
+    <div class="description">
+
+      <h3>Write a short description about the condition of your iphone</h3>
+      <textarea name="descp_details" cols="60" rows="2" id="text_descp" placeholder="Type here"></textarea>
+      <h3>Enter your phone number</h3>
+      <input id="phn" name="mob_num" type="number" placeholder="Enter your phone number">
+      <h3>How was your experience with us till now?</h3>
+      <h3>Give us a short feedback</h3>
+      <input id="feed" name="feedback" type="text" placeholder="Feedback please"><br>
+
+    </div><br>
+
+    </form>
+
+    <button id="sell_btn" onclick="submit_form()">Sell iPhone</button>
+
+
+
+
+
+  </div>
+
+
+  <footer class="foot">
+    <h3>© iPhone Resales Corner 2021 All Rights Reserved</h3>
+    <h3 id="foot_gmail">Contact - iphoneresalescorner@gmail.com</h3>
+  </footer>
+
+
+</body>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+
+  body {
+    height: 100%;
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(0, 0, 0);
+    font-weight: bolder;
+    background-color: black;
+    text-align: center;
+  }
+
+  .main-content {
+    background: url("https://sfwallpaper.com/images/blank-wallpaper-13.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin-bottom: 0;
+  }
+
+  .foot {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    background-color: black;
+    color: rgb(152, 235, 29);
+  }
+
+  header {
+    color: rgb(152, 235, 29);
+    background-color: rgba(0, 0, 0, 0.5);
+    font-family: 'Cinzel', serif;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    position: sticky;
+    top: 0;
+  }
+
+
+  header h1 {
+    margin: 1%;
+  }
+
+  textArea {
+    max-width: 70%;
+    resize: none;
+  }
+
+  .textarea_faults {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+  }
+
+  .kit_check label {
+    margin: 0.5%;
+  }
+
+  #sell_btn {
+    margin-bottom: 3%;
+    color: rgb(0, 110, 255);
+  }
+
+
+
+  /*   FOR MOBILE USERS    */
+
+  @media only screen and (max-width:650px) {
+    #foot_gmail {
+      font-size: medium;
+    }
+
+  }
+</style>
+
+<script type="text/javascript">
+
+  let mob_details = '{{ mobile_details }}';
+
+  let array = new Array();
+
+  array = mob_details.split("|");
+
+  document.getElementById("push_heading").innerHTML = "Sell your iphone " + array[1] + " " + array[2] + "GB";
+
+  let url = window.location.href;
+
+  if (url.includes("/sell_iphone")) {
+    if (array[3] == "YES") {
+      document.getElementById("text_pd").style.display = "block";
+      document.getElementById("text_pd_head").style.display = "block";
+    }
+    if (array[4] == "YES") {
+      document.getElementById("text_sd").style.display = "block";
+      document.getElementById("text_sd_head").style.display = "block";
+    }
+    if (array[5] == "YES") {
+      document.getElementById("text_hd").style.display = "block";
+      document.getElementById("text_hd_head").style.display = "block";
+    }
+  }
+
+  function submit_form() {
+
+    // Kit check boxes validation
+    let check_str = "";
+
+    if(document.getElementById("check_box").checked == true){
+      check_str = "No Box ";
+    }
+    if(document.getElementById("check_charger").checked == true){
+      check_str += "No Charger ";
+    }
+    if(document.getElementById("check_earphones").checked == true){
+      check_str += "No Earphones ";
+    }
+
+    // phone age radio buttons validation
+    let phn_age = "";
+    if(document.getElementById("1year").checked == true){
+      phn_age = "Less than 1 year";
+      document.getElementById("age_heading").style.color = "black";
+    }
+    else if(document.getElementById("3year").checked == true){
+      phn_age = "Between 1-3 year";
+      document.getElementById("age_heading").style.color = "black";
+    }
+    else if(document.getElementById("5year").checked == true){
+      phn_age = "More than 3 year";
+      document.getElementById("age_heading").style.color = "black";
+    }
+    else{
+      alert("Choose your iphone age");
+      document.getElementById("age_heading").style.color = "red";
+      return;
+    }
+
+
+    // Phone number validation 
+    let int1 = document.getElementById("phn").value;
+    let feed = document.getElementById("feed").value;
+
+    let regx = /^[6-9][\d]{9}$/;
+
+    if (int1 == "") {
+      alert("Enter Phone Number");
+      document.getElementById("phn").style.border = "solid 4px red";
+      return;
+    }
+
+    else if (!(regx.test(int1))) {
+      alert("Enter a Valid Phone Number");
+      document.getElementById("phn").style.border = "solid 4px red";
+      return;
+    }
+
+    else {
+      document.getElementById("phn").style.border = "none";
+    }
+
+
+    // Feedback Validation
+    if (feed == "" || feed.trim().length < 4) {
+      alert("Please fill the feedback section\nSo that we can improve ourselves for you");
+      document.getElementById("feed").style.border = "solid 4px red";
+      return;
+    }
+
+    else {
+      document.getElementById("feed").style.border = "none";
+    }
+
+    // Physical damage validation
+    if (array[3] == "YES") {
+      let pd_text = document.getElementById("text_pd").value;
+      if (pd_text.trim() == "" || pd_text.trim().length < 15) {
+        alert("Tell about the Physical damage in iphone in brief");
+        document.getElementById("text_pd").style.border = "solid 3px red";
+        return;
+      }
+      else {
+        document.getElementById("text_pd").style.border = "none";
+      }
+    }
+    else {
+      document.getElementById("text_pd").value = "NO";
+    }
+
+    // Software damage validation
+    if (array[4] == "YES") {
+      let sd_text = document.getElementById("text_sd").value;
+      if (sd_text.trim() == "" || sd_text.trim().length < 15) {
+        alert("Tell about the Software issue in iphone in brief");
+        document.getElementById("text_sd").style.border = "solid 3px red";
+        return;
+      }
+      else {
+        document.getElementById("text_sd").style.border = "none";
+      }
+    }
+    else {
+      document.getElementById("text_sd").value = "NO";
+    }
+
+    // Hardware damage validation
+    if (array[5] == "YES") {
+      let hd_text = document.getElementById("text_hd").value;
+      if (hd_text.trim() == "" || hd_text.trim().length < 15) {
+        alert("Tell about the Hardware issue in iphone in brief");
+        document.getElementById("text_hd").style.border = "solid 3px red";
+        return;
+      }
+      else {
+        document.getElementById("text_hd").style.border = "none";
+      }
+    }
+    else {
+      document.getElementById("text_hd").value = "NO";
+    }
+
+    // Phone description validation
+    let phn_desp = document.getElementById("text_descp").value;
+
+    if (phn_desp.trim() == "" || phn_desp.trim().length < 10) {
+      alert("Give a description of your iphone in some words");
+      document.getElementById("text_descp").style.border = "solid 3px red";
+      return;
+    }
+    else {
+      document.getElementById("text_descp").style.border = "none";
+    }
+
+    if(check_str==""){
+      check_str="NO";
+    }
+
+    document.getElementById("kit_id").value = check_str;
+    document.getElementById("age_id").value = phn_age;
+    document.getElementById("push_details").value = mob_details;
+
+
+    document.getElementById("myform").submit();
+
+  }
+
+</script>
+
+
+
+
+</html>

@@ -23,7 +23,12 @@
 
     <h2 id="push_value" style="color: chartreuse;"></h2>
 
-    <button>Sell this iPhone</button>
+    <form action="{{ url_for('sell_iphone')}}" method="post" id="myform_1">
+      <select name="pass_model_details" style="display: none;">
+        <option id="pass_mob"></option>
+      </select>
+    </form>
+    <button onclick="submit_form()">Sell this iPhone</button>
 
     <h3 id="rate_heading"></h3>
 
@@ -52,10 +57,9 @@
       <div id="kit"></div>
     </div>
 
+    <button onclick="submit_form()">Sell this iPhone</button>
 
-    <button>Sell this iPhone</button>
-
-   
+    
 
   </div>
 
@@ -166,6 +170,7 @@
 
   button{
     margin: 2%;
+    color: rgb(0, 102, 255);
   }
 
 
@@ -192,6 +197,7 @@
   let model_name = '{{ mobile_model }}';
   let variant_ = '{{ variant_ }}';
 
+
   let battery_condition = "";
   if(battery_percent==70){
     battery_condition="Service";
@@ -202,6 +208,18 @@
   if(battery_percent==85){
     battery_condition="Excellent";
   }
+  if(model_name.trim()=="12PRO" || model_name.trim()=="12PROMAX"){
+    if(variant_.trim()=="64"){
+      variant_="128";
+    }
+    else if(variant_.trim()=="128"){
+      variant_="256";
+    }
+    else if(variant_.trim()=="256"){
+      variant_="512";
+    }
+  }
+
 
   document.getElementById("model").innerHTML = "Model   : "+model_name;
   document.getElementById("variant").innerHTML = "Variant  : "+variant_+"GB";
@@ -230,9 +248,13 @@
   if(battery_percent==70){
     star--;
   }
+  let star_2=star;
   if(star<=0){
     star=1;
   }
+
+  let str = predicted_value+"|"+model_name+"|"+variant_+"|"+physical_damage+"|"+software_damage;
+  str = str+"|"+hardware_damage+"|"+battery_percent+"|"+kit_availability+"|"+star_2;
 
   for(var i=0;i<star;i++){
     document.getElementById("star"+(i+1)).className = "fa fa-star checked";
@@ -240,6 +262,20 @@
 
   document.getElementById("rate_heading").innerHTML = "Rating for your iphone "+model_name+" condition";
   document.getElementById("text_rate").innerHTML = "Condition rating : "+star+"/5";
+
+  let url = window.location.href;
+
+  if(url.includes("/resale_value")){
+    document.getElementById("pass_mob").value = str;
+  }
+
+  function submit_form(){
+    if(star_2<=0){
+      alert("Sorry\nYou cannot sell the iphone with this condition");
+      return;
+    }
+    document.getElementById("myform_1").submit();
+  }
 
 
 </script>
