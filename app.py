@@ -427,11 +427,11 @@ def store_buyer_iphone():
         sheet.update_cell(len_row,4,get_output)
         sheet.update_cell(len_row,5,feedback)
 
-        return render_template("thanks.html")
+        return render_template("thanks.html",from_section="BUY")
 
     else:
 
-        return render_template("thanks.html")
+        return render_template("thanks.html",from_section="BUY")
 
 
 #redirect to home page after thanks page
@@ -553,20 +553,21 @@ def sell_this_iphone():
         sheet.update_cell(len_row,5,sd_details)
         sheet.update_cell(len_row,6,hd_details)
         sheet.update_cell(len_row,7,kit_details)
-        sheet.update_cell(len_row,8,age_details)
-        sheet.update_cell(len_row,9,descp_details)
-        sheet.update_cell(len_row,10,descp_rate)
-        sheet.update_cell(len_row,11,feedback)
-        sheet.update_cell(len_row,12,feed_rate)
-        sheet.update_cell(len_row,13,mob_num)
+        sheet.update_cell(len_row,8,mob_details[6])
+        sheet.update_cell(len_row,9,age_details)
+        sheet.update_cell(len_row,10,descp_details)
+        sheet.update_cell(len_row,11,descp_rate)
+        sheet.update_cell(len_row,12,feedback)
+        sheet.update_cell(len_row,13,feed_rate)
+        sheet.update_cell(len_row,14,mob_num)
 
 
 
-        return render_template('thanks.html')
+        return render_template('thanks.html',from_section="SELL")
     
     else:
 
-        return render_template('thanks.html')
+        return render_template('thanks.html',from_section="SELL")
 
 
 

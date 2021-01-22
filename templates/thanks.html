@@ -27,7 +27,7 @@
 
     <div class="thanks">
       <h2>Thanks for using iPhone Resales Corner</h2>
-      <h3>You can come to our store and buy the iPhone</h3>
+      <h3 id="sect">You can come to our store and buy the iPhone</h3>
       <h3 style="color: rgb(0, 217, 255);">You will be redirected to Home now</h3><br>
       <h3>We value your given feedback</h3>
       <h3>We will improve ourselves according to your feedback</h3>
@@ -144,6 +144,13 @@
 function autosubmit(){
   document.getElementById("myform").submit();
 }
+
+let section = '{{ from_section }}';
+
+if(section=="SELL"){
+  document.getElementById("sect").innerHTML = "You can come to our store and sell the iPhone";
+}
+
 
 setTimeout(autosubmit,8000);
   
