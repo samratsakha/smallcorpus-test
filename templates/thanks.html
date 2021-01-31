@@ -151,6 +151,20 @@ let section = '{{ from_section }}';
 if(section=="SELL"){
   document.getElementById("sect").innerHTML = "You can come to our store and sell the iPhone";
 }
+else if(section=="review_1"){
+  document.getElementById("sect").innerHTML = "Thanks for reviewing iphone, your response has been submitted";
+}
+else if(section=="review_0"){
+  document.getElementById("sect").innerHTML = "Sorry we could not find your IMEI Number or Model and Variant";
+  document.getElementById("sect").style.color = "red";
+}
+else if(section=="complaint_1"){
+  document.getElementById("sect").innerHTML = "Your complaint has been submitted, we will contact you soon";
+}
+else if(section=="complaint_0"){
+  document.getElementById("sect").innerHTML = "Sorry we could not find your IMEI Number or Model and Variant";
+  document.getElementById("sect").style.color = "red";
+}
 
 
 setTimeout(autosubmit,8000);

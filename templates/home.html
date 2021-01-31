@@ -8,6 +8,190 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iPhone Resales Corner</title>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    
+    
+        body {
+            height: 100%;
+            font-family: 'Times New Roman', Times, serif;
+            color: rgb(152, 235, 29);
+            font-weight: bolder;
+            background-color: black;
+            text-align: center;
+        }
+    
+        .main-content {
+            background: url("https://www.pixel4k.com/wp-content/uploads/2018/03/Dark%20Metal%20Apple3724615454.jpg") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            margin-bottom: 0;
+        }
+    
+        .foot {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            justify-items: center;
+            background-color: black;
+            color: rgb(152, 235, 29);
+        }
+    
+    
+        #get_value {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            justify-items: center;
+        }
+    
+    
+        header {
+            color: rgb(152, 235, 29);
+            background-color: rgba(0, 0, 0, 0.4);
+            font-family: 'Cinzel', serif;
+            font-size: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            justify-items: center;
+            position: sticky;
+            top: 0;
+        }
+    
+    
+        header h1 {
+            margin: 1%;
+        }
+    
+    
+        .div_1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            justify-items: center;
+        }
+    
+        .model_div {
+            height: 40vh;
+            width: 40vh;
+            border-radius: 5%;
+            background-color: rgb(255, 255, 255, 0.4);
+            margin: 2%;
+        }
+    
+        .model_div:hover {
+            cursor: pointer;
+            background-color: rgb(255, 255, 255, 0.8);
+            color: black;
+        }
+    
+        .variant_div {
+            height: 40vh;
+            width: 40vh;
+            border-radius: 5%;
+            background-color: rgb(255, 255, 255, 0.4);
+            margin: 2%;
+        }
+    
+        .variant_div:hover {
+            cursor: pointer;
+            background-color: rgb(255, 255, 255, 0.8);
+            color: black;
+        }
+    
+        .div_5 {
+            display: flex;
+            margin: 2%;
+            color: greenyellow;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            justify-items: center;
+            font-size: x-large;
+        }
+    
+    
+        .div_1 h3 {
+            text-align: center;
+            padding: 40% 0;
+            font-size: x-large;
+        }
+    
+        .div_2{
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            justify-items: center;
+        }
+    
+        .div_2 button{
+            margin-right: 6%;
+            margin-left: 6%;
+            font-size: medium;
+            font-weight: bold;
+        }
+    
+        .div_2 button:hover{
+            cursor: pointer;
+            background-color: rgb(97, 224, 12);
+            color: rgb(0, 0, 0);
+        }
+    
+        /*   FOR APPLE USERS    */
+    
+    
+        #apple_1 {
+            background: url("https://www.dream-wallpaper.com/free-wallpaper/art-wallpaper/apple-4-wallpaper/1280x800/free-wallpaper-12.jpg") no-repeat center center;
+        }
+    
+    
+        /*   FOR MOBILE USERS    */
+    
+        @media only screen and (max-width:750px) {
+            .div_1 {
+                flex-direction: column;
+            }
+    
+            .model_div {
+                height: 30vh;
+                width: 30vh;
+                border-radius: 5%;
+                background-color: rgb(255, 255, 255, 0.4);
+                margin: 2%;
+            }
+    
+            .variant_div {
+                height: 30vh;
+                width: 30vh;
+                border-radius: 5%;
+                background-color: rgb(255, 255, 255, 0.4);
+                margin: 2%;
+            }
+    
+            .div_1 h3 {
+                text-align: center;
+                padding: 37% 0;
+                font-size: x-large;
+            }
+        }
+    </style>
+
+
 </head>
 
 <body>
@@ -54,8 +238,11 @@
 
         <div class="div_2">
 
-            <button>Review our iPhone</button>
-            <button>Lodge a complaint</button>
+            <form action="{{ url_for('go_to_review_our_iphone')}}" method="post" id="review_our_iphone"></form>
+            <form action="{{ url_for('go_to_complaint_our_iphone')}}" method="post" id="complaint_iphone"></form>
+
+            <button id="review_sub()" type="submit" onclick="gotoreview()">Review our iPhone</button>
+            <button id="complaint_sub()" type="submit" onclick="gotocomplaint()">Lodge a complaint</button>
 
         </div>
 
@@ -75,164 +262,8 @@
 
 </body>
 
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-    }
 
 
-    body {
-        height: 100%;
-        font-family: 'Times New Roman', Times, serif;
-        color: rgb(152, 235, 29);
-        font-weight: bolder;
-        background-color: black;
-        text-align: center;
-    }
-
-    .main-content {
-        background: url("https://www.pixel4k.com/wp-content/uploads/2018/03/Dark%20Metal%20Apple3724615454.jpg") no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        margin-bottom: 0;
-    }
-
-    .foot {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-        justify-items: center;
-        background-color: black;
-        color: rgb(152, 235, 29);
-    }
-
-
-    #get_value {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-        justify-items: center;
-    }
-
-
-    header {
-        color: rgb(152, 235, 29);
-        background-color: rgba(0, 0, 0, 0.4);
-        font-family: 'Cinzel', serif;
-        font-size: 25px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-        justify-items: center;
-        position: sticky;
-        top: 0;
-    }
-
-
-    header h1 {
-        margin: 1%;
-    }
-
-
-    .div_1 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-        justify-items: center;
-    }
-
-    .model_div {
-        height: 40vh;
-        width: 40vh;
-        border-radius: 5%;
-        background-color: rgb(255, 255, 255, 0.4);
-        margin: 2%;
-    }
-
-    .model_div:hover {
-        cursor: pointer;
-        background-color: rgb(255, 255, 255, 0.8);
-        color: black;
-    }
-
-    .variant_div {
-        height: 40vh;
-        width: 40vh;
-        border-radius: 5%;
-        background-color: rgb(255, 255, 255, 0.4);
-        margin: 2%;
-    }
-
-    .variant_div:hover {
-        cursor: pointer;
-        background-color: rgb(255, 255, 255, 0.8);
-        color: black;
-    }
-
-    .div_5 {
-        display: flex;
-        margin: 2%;
-        color: greenyellow;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-        justify-items: center;
-        font-size: x-large;
-    }
-
-
-    .div_1 h3 {
-        text-align: center;
-        padding: 40% 0;
-        font-size: x-large;
-    }
-
-    /*   FOR APPLE USERS    */
-
-
-    #apple_1 {
-        background: url("https://www.dream-wallpaper.com/free-wallpaper/art-wallpaper/apple-4-wallpaper/1280x800/free-wallpaper-12.jpg") no-repeat center center;
-    }
-
-
-    /*   FOR MOBILE USERS    */
-
-    @media only screen and (max-width:750px) {
-        .div_1 {
-            flex-direction: column;
-        }
-
-        .model_div {
-            height: 30vh;
-            width: 30vh;
-            border-radius: 5%;
-            background-color: rgb(255, 255, 255, 0.4);
-            margin: 2%;
-        }
-
-        .variant_div {
-            height: 30vh;
-            width: 30vh;
-            border-radius: 5%;
-            background-color: rgb(255, 255, 255, 0.4);
-            margin: 2%;
-        }
-
-        .div_1 h3 {
-            text-align: center;
-            padding: 37% 0;
-            font-size: x-large;
-        }
-    }
-</style>
 
 <script type="text/javascript">
 
@@ -249,6 +280,14 @@
 
     function submit_sell() {
         document.getElementById("sub_sell").submit();
+    }
+
+    function gotoreview(){
+        document.getElementById("review_our_iphone").submit();
+    }
+
+    function gotocomplaint(){
+        document.getElementById("complaint_iphone").submit();
     }
 
 </script>

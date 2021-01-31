@@ -572,6 +572,147 @@ def sell_this_iphone():
 
 
 
+#############################################     Reviewing Section     ###############################################
+
+
+# home to review iphone 
+@app.route("/review_iphone", methods=['POST'])
+def go_to_review_our_iphone():
+    if request.method == 'POST':
+
+        return render_template('iphone_review.html')
+
+    else:
+
+        return render_template('home.html')
+
+
+# home to complaint iphone 
+@app.route("/complaint_iphone", methods=['POST'])
+def go_to_complaint_our_iphone():
+    if request.method == 'POST':
+
+        return render_template('complaint.html')
+
+    else:
+
+        return render_template('home.html')
+
+
+
+# review our iphone to database 
+@app.route("/thank_you", methods=['POST'])
+def review_our_iphone():
+    if request.method == 'POST':
+
+        mob_model = request.form['model_mob']
+        mob_variant = int(request.form['variant'])
+        mob_variant = str(mob_variant) + "GB"
+        imei = request.form['imei']
+        imei = imei.replace(" ","")
+        review_texts = request.form['review_texts']
+        mobile_number = int(request.form['mobile_number'])
+
+        sentiment_review,sentiment_rate=new_review(str(review_texts))
+        get_output,get_rate=decision_maker(sentiment_review,sentiment_rate)
+
+
+        scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
+        credentials = ServiceAccountCredentials.from_json_keyfile_name('credentials_iphone_available_list.json',scope)
+
+        client = gspread.authorize(credentials)
+        sheet = client.open("available_iphones_list").get_worksheet(3)
+        row_imei = [item for item in sheet.col_values(1) if item]
+        row_info = [item for item in sheet.col_values(2) if item]
+        len_row = len(row_info)+1
+
+        models = []
+        variants = []
+        flag = 0
+
+
+        for i in row_info:
+            splitted = i.split()
+            models.append(splitted[0])
+            variants.append(splitted[1])
+
+
+        for i in range(len_row-1):
+            if(row_imei[i].replace(" ","")==imei):
+                if(mob_model==models[i] and mob_variant==variants[i]):
+                    sheet.update_cell(i+1,3,get_output)
+                    sheet.update_cell(i+1,4,get_rate)
+                    sheet.update_cell(i+1,5,review_texts)
+                    sheet.update_cell(i+1,6,mobile_number)
+                    flag = 1
+                
+                
+        if flag==1:
+            return render_template('thanks.html',from_section="review_1")
+        else:
+            return render_template('thanks.html',from_section="review_0")
+
+
+    else:
+
+        return render_template('home.html')
+
+
+
+
+# iphone complaints 
+@app.route("/thankyou", methods=['POST'])
+def complaint_iphone():
+    if request.method == 'POST':
+
+        mob_model = request.form['model_mob']
+        mob_variant = int(request.form['variant'])
+        mob_variant = str(mob_variant) + "GB"
+        imei = request.form['imei']
+        imei = imei.replace(" ","")
+        complaint = request.form['review_texts']
+        mobile_number = int(request.form['mobile_number'])
+
+        scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
+        credentials = ServiceAccountCredentials.from_json_keyfile_name('credentials_iphone_available_list.json',scope)
+
+        client = gspread.authorize(credentials)
+        sheet = client.open("available_iphones_list").get_worksheet(3)
+        row_imei = [item for item in sheet.col_values(1) if item]
+        row_info = [item for item in sheet.col_values(2) if item]
+        len_row = len(row_info)+1
+
+        models = []
+        variants = []
+        flag = 0
+
+        for i in row_info:
+            splitted = i.split()
+            models.append(splitted[0])
+            variants.append(splitted[1])
+
+
+        for i in range(len_row-1):
+            if(row_imei[i].replace(" ","")==imei):
+                if(mob_model==models[i] and mob_variant==variants[i]):
+                    sheet.update_cell(i+1,10,complaint)
+                    sheet.update_cell(i+1,11,mobile_number)
+                    flag = 1
+
+        if flag==1:
+            return render_template('thanks.html',from_section="complaint_1")
+        else:
+            return render_template('thanks.html',from_section="complaint_0")
+
+
+    else:
+
+        return render_template('home.html')
+
+
+
+
+
 
 if __name__=="__main__":
     app.run(debug=True)
